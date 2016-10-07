@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Carbon\Carbon;
 
 class CreateThreadsTable extends Migration
 {
@@ -19,8 +20,8 @@ class CreateThreadsTable extends Migration
             $table->longText('description');
             $table->longText('code_block');
             $table->integer('user_id');
-            $table->timestamp('start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('end_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('start_date')->default(Carbon::now()); // GMT now
+            $table->timestamp('end_date')->default(NULL)->nullable(); // the thread will never end
             $table->timestamps();
         });
     }

@@ -19,8 +19,8 @@ class CreateThreadsTable extends Migration
             $table->longText('description');
             $table->longText('code_block');
             $table->integer('user_id');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date'); // if user wants to specify a timeframe
+            $table->timestamp('start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('end_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });
     }

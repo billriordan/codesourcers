@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Route::get('register/verify/{confirmationCode}', [
+// 	'as' => 'confirmation_path',
+// 	'uses' => 'RegistrationController@confirm'
+// 	]);
+
+
+// Route::get('register',function(){
+// 	return view('registration');
+// });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

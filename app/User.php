@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+use App\Thread;
+use App\Comment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

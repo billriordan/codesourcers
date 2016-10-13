@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Thread;
+use App\User;
+use App\Comment;
 use App\Http\Requests;
 
 class ThreadsController extends Controller
 {
     public function index()
     {
-    	$threads = Thread::with('users')->paginate(20);
+    	$threads = Thread::all();
+    	//$threads = Thread::with('users')->paginate(20);
     	return view('thread.frontpage', compact('threads'));
     }
 

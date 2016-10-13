@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'ThreadsController@index');
+
+Route::resource('thread', 'ThreadsController');

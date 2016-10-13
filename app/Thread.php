@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+use App\User;
+use App\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model

@@ -109,7 +109,7 @@ class RegisterController extends Controller
             $message->to(Input::get('email'), Input::get('name'))->subject('Verify your email address');
         });
 
-        flash('Message', 'Thanks for signing up! Please check your email.');
+        flash('Thanks for signing up! Please check your email.', 'success');
 
 
         return redirect('/'); //redirect to laravel page
@@ -138,6 +138,7 @@ class RegisterController extends Controller
     {
         if( ! $confirmation_code)
         {
+            flash('Confirmation code does not exist', 'danger');
             return redirect('/home');
         }
 
@@ -145,7 +146,7 @@ class RegisterController extends Controller
 
         if ( ! $user)
         {
-            flash('Message', 'Confirmation code does not exist');
+            flash('Confirmation code does not exist', 'danger');
             return redirect('/home');
         }
 
@@ -153,7 +154,7 @@ class RegisterController extends Controller
         $user->confirmation_code = null;
         $user->save();
 
-        flash('Message', 'You have successfully verified your account.');
+        flash('You have successfully verified your account', 'success');
 
         return redirect('/login');
     }

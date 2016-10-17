@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Mail;
 use Illuminate\Support\Facades\Input;
-
+use Log;
 
 class RegisterController extends Controller
 {
@@ -109,6 +109,7 @@ class RegisterController extends Controller
             $message->to(Input::get('email'), Input::get('name'))->subject('Verify your email address');
         });
 
+        flash('Message', 'Thanks for signing up! Please check your email.');
 
 
         return redirect('/'); //redirect to laravel page
@@ -124,5 +125,36 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return view('auth.register');
+    }
+
+
+    /**
+     *
+     * Confirms an email
+     * @param $confirmation_code
+     * @return mixed
+     */
+    public function confirm($confirmation_code)
+    {
+        if( ! $confirmation_code)
+        {
+            return redirect('/home');
+        }
+
+        $user = User::where('confirmation_code' , $confirmation_code)->first();
+
+        if ( ! $user)
+        {
+            flash('Message', 'Confirmation code does not exist');
+            return redirect('/home');
+        }
+
+        $user->confirmed = 1;
+        $user->confirmation_code = null;
+        $user->save();
+
+        flash('Message', 'You have successfully verified your account.');
+
+        return redirect('/login');
     }
 }

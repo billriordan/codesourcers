@@ -27,7 +27,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('register/verify/{confirmationCode}', [
     'as' => 'confirmation_path',
-    'uses' => 'RegistrationController@confirm'
+    'uses' => 'Auth\RegisterController@confirm'
 ]);
 
 
@@ -37,3 +37,4 @@ Route::get('logout', 'Auth\LoginController@logout');
 //Login Routes
 
 Route::get('login', 'Auth\LoginController@showLoginForm');
+Route::post('login', 'Auth\LoginController@login');

@@ -6,6 +6,12 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\ActivationService; 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Mail;
+use Illuminate\Support\Facades\Input;
+
 
 class RegisterController extends Controller
 {
@@ -19,7 +25,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    protected $activationService;
     use RegistersUsers;
 
     /**
@@ -27,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,6 +43,16 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Custom construct that injects an ActivationService object
+     * 
+     */
+    public function _construct(ActivationService $activationService){
+
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->activationService = $activationService;
     }
 
     /**
@@ -51,21 +67,62 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'confirmation_code'
         ]);
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
+     * Overriding register function for RegisterUsers the registration request for the application.
+     * Want to update this register function to work with email
+     * verification.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    protected function create(array $data)
+    public function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+
+        $this->validator($request->all())->validate(); //validates our post request
+
+        //$request->all() -> an array of data passed from post
+
+
+
+        $confirmation_code = str_random(30);
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+            'confirmation_code' => $confirmation_code,
         ]);
+
+        //creates our registered user
+        event(new Registered($user)); 
+
+
+        $this->guard()->login($user);
+
+
+
+        $data['confirmation_code'] = $confirmation_code;
+        //MAIL component
+        Mail::send('registeremail', $data, function($message){
+            $message->to(Input::get('email'), Input::get('name'))->subject('Verify your email address');
+        });
+
+
+
+        return redirect('/'); //redirect to laravel page
+    }
+
+
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
     }
 }

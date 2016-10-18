@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 // Auth::routes();
@@ -38,3 +36,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('login', 'Auth\LoginController@showLoginForm');
 Route::post('login', 'Auth\LoginController@login')->middleware('confirm');
+
+Route::get('/', 'ThreadsController@index');
+
+Route::resource('thread', 'ThreadsController');

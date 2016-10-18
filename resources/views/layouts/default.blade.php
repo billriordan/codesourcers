@@ -53,10 +53,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/auth/login') }}">Login</a></li>
+                        <li><a href="{{ url('/login') }}">Login</a></li>
                     @else
                         <li class="dropdown">
-                            <a href="{{ url('/auth/logout') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="{{ url('/logout') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} Logout
                             </a>
 

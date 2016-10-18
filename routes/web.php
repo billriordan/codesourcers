@@ -11,6 +11,32 @@
 |
 */
 
+
+
+
+// Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+
+//Registration routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm');
+Route::post('register', 'Auth\RegisterController@register');
+
+Route::get('register/verify/{confirmationCode}', [
+    'as' => 'confirmation_path',
+    'uses' => 'Auth\RegisterController@confirm'
+]);
+
+
+//Authentication Routes...
+Route::get('logout', 'Auth\LoginController@logout');
+
+//Login Routes
+
+Route::get('login', 'Auth\LoginController@showLoginForm');
+Route::post('login', 'Auth\LoginController@login')->middleware('confirm');
+
 Route::get('/', 'ThreadsController@index');
 
 Route::resource('thread', 'ThreadsController');

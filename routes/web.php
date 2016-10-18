@@ -37,4 +37,4 @@ Route::get('logout', 'Auth\LoginController@logout');
 //Login Routes
 
 Route::get('login', 'Auth\LoginController@showLoginForm');
-Route::post('login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@login')->middleware('confirm');

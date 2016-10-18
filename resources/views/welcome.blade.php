@@ -65,6 +65,13 @@
         </style>
     </head>
     <body>
+    @if (session()->has('flash_notification.message'))
+        <div class="alert alert-{{ session('flash_notification.level') }}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+            {!! session('flash_notification.message') !!}
+        </div>
+    @endif
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">

@@ -80,7 +80,7 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-
+        flash('check');
         $this->validator($request->all())->validate(); //validates our post request
 
         //$request->all() -> an array of data passed from post
@@ -139,7 +139,7 @@ class RegisterController extends Controller
         if( ! $confirmation_code)
         {
             flash('Confirmation code does not exist', 'danger');
-            return redirect('/home');
+            return redirect('/register');
         }
 
         $user = User::where('confirmation_code' , $confirmation_code)->first();
@@ -147,7 +147,7 @@ class RegisterController extends Controller
         if ( ! $user)
         {
             flash('Confirmation code does not exist', 'danger');
-            return redirect('/home');
+            return redirect('/register');
         }
 
         $user->confirmed = 1;

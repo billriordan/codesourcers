@@ -37,3 +37,5 @@ Route::post('login', 'Auth\LoginController@login')->middleware('confirm');
 Route::get('/', 'ThreadsController@index');
 
 Route::resource('thread', 'ThreadsController');
+
+Route::resource('comment', 'CommentsController'); // why not have direct linking capability?

@@ -1,8 +1,6 @@
 <?php
 
 namespace App;
-use App\User;
-use App\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
@@ -25,13 +23,13 @@ class Thread extends Model
         'id', 'user_id',
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo('App/User');
+        return $this->belongsTo('App\User');
     }
 
     public function comments()
     {
-        return $this->hasMany('App/Comment');
+        return $this->hasMany('App\Comment');
     }
 }

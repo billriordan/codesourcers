@@ -6,52 +6,38 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\User;
 use App\Comment;
-use Carbon\Carbon;
 use App\Http\Requests;
 
-class ThreadsController extends Controller
+class CommentsController extends Controller
 {
     public function index()
     {
-    	$threads = Thread::paginate(20);
-    	//$threads = Thread::with('users')->paginate(20);
-    	return view('thread.frontpage', compact('threads'));
+        //cool admin functionality
+        if(\Auth::user()->is_admin)
+        {
+    	   $comments = Comment::paginate(50);
+    	   //$threads = Thread::with('users')->paginate(20);
+    	   return view('comment.firehose', compact('comments'));
+        }
+        else
+            redirect()->back();
     }
 
     public function show($id)
     {
-    	//$thread = Thread::where('id', $id)->with('comments')->limit(1)->get();
-        $thread = Thread::where('id', $id)->with(
-                    [
-                        'comments' => function($query)
-                        {
-                            $query->where('comment_id' , 0)->with('comments', 'comments.comments', 'comments.comments.comments');
-                            /*
-                            // ad infinitum //
-                            $query->where('comment_id' , 0)->with([
-                                                            'comments' => function($query)
-                                                            {
-                                                                $query->where('comment_id', '>' , 0)->with('comments');
-                                                            }
-                            // ad infinitum //
-                            */
-                        }
-                    ])->limit(1)->get();
-        $thread = $thread[0];
-        //dd($thread);
-        //dd($thread->comments[0]->user->name);
+    	$comment = Comment::find($id);
 
-    	return view('thread.show', compact('thread'));
+    	return view('comment.show', compact('comment'));
     }
 
-    public function create()
+    /*public function create()
     {
         if(\Auth::check())
         {
-            return view('thread.create');
+            return view('comment.create');
         }
         else return redirect()->back();
-    }
+    }*/
 
     public function store()
     {

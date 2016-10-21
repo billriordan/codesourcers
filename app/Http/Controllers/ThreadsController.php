@@ -25,7 +25,11 @@ class ThreadsController extends Controller
 
     public function create()
     {
-    	return view('thread.create');
+        if(\Auth::check())
+        {
+            return view('thread.create');
+        }
+        else return redirect()->back();
     }
 
     public function store()
@@ -35,7 +39,7 @@ class ThreadsController extends Controller
 		$thread->name = Input::get('name');
 		$thread->description = Input::get('description');
 		$thread->code_block = Input::get('code_block');
-		$thread->user_id = Input::get('user_id');
+		$thread->user_id = \Auth::user()->id;
 
 		if(Input::get('start_date'))
 			$thread->start_date = Input::get('start_date');

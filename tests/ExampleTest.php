@@ -13,7 +13,27 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/login')
+        $this->visit('/')
              ->see('Adrian Gracia');
+
+
+
     }
+
+
+
+    /*
+     *
+     * Test login
+     */
+    public function testLogin(){
+
+        $this->visit('/login')
+            ->type('jared@gmail.com', 'email')
+            ->type('password', 'password')
+            ->press('login')
+            ->seePageIs('/');
+    }
+
+
 }

@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use Mail;
 use Illuminate\Support\Facades\Input;
 use Log;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -80,12 +81,7 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        flash('check');
         $this->validator($request->all())->validate(); //validates our post request
-
-        //$request->all() -> an array of data passed from post
-
-
 
         $confirmation_code = str_random(30);
         $user = User::create([
@@ -111,7 +107,7 @@ class RegisterController extends Controller
 
         flash('Thanks for signing up! Please check your email.', 'success');
 
-
+        Auth::logout();
         return redirect('/'); //redirect to laravel page
     }
 

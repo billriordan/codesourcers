@@ -68,7 +68,7 @@ class ThreadsController extends Controller
 			$thread->end_date = Input::get('end_date');
 
 		$thread->save();
-    	return redirect()->route('thread', ['id' => $thread->id]);
+    	return redirect('/');
     }
 
     public function edit($id)
@@ -89,7 +89,8 @@ class ThreadsController extends Controller
 		if(Input::get('end_date'))
 			$thread->end_date = Input::get('end_date');
 
-    	return redirect()->route('thread', ['id' => $thread->id]);
+        $thread->save();
+    	return redirect('thread/' . $id);
     }
 
     public function destroy($id)

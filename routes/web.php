@@ -31,6 +31,14 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('login', 'Auth\LoginController@showLoginForm');
 Route::post('login', 'Auth\LoginController@doLogin');
 
+//Forgot password routes
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+// Route::get('/', 'ThreadsController@index');
+
 Route::resource('thread', 'ThreadsController');
 
-Route::resource('comment', 'CommentsController'); // why not have direct linking capability?
+Route::resource('comment', 'CommentsController');

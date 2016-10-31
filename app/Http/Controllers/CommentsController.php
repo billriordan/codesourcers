@@ -41,47 +41,38 @@ class CommentsController extends Controller
 
     public function store()
     {
-    	$thread = new Thread();
+    	$comment = new Comment();
 
-		$thread->name = Input::get('name');
-		$thread->description = Input::get('description');
-		$thread->code_block = Input::get('code_block');
-		$thread->user_id = \Auth::user()->id;
+		$comment->description = Input::get('description');
+		$comment->code_block = Input::get('code_block');
+        $comment->thread_id = Input::get('thread_id');
+        $comment->comment_id = Input::get('comment_id');
+		$comment->user_id = \Auth::user()->id;
 
-		if(Input::get('start_date'))
-			$thread->start_date = Input::get('start_date');
-		if(Input::get('end_date'))
-			$thread->end_date = Input::get('end_date');
-
-		$thread->save();
-    	return redirect()->route('thread', ['id' => $thread->id]);
+		$comment->save();
+    	return redirect('thread/' . $comment->thread_id);
     }
 
     public function edit($id)
     {
-    	$thread = Thread::find($id);
-    	return view('thread.edit', compact('thread'));
+    	$comment = Comment::find($id);
+    	return view('comment.edit', compact('comment'));
     }
 
     public function update($id)
     {
-    	$thread = Thread::find($id);
-    	$thread->name = Input::get('name');
-		$thread->description = Input::get('description');
-		$thread->code_block = Input::get('code_block');
+    	$comment = Comment::find($id);
+		$comment->description = Input::get('description');
+		$comment->code_block = Input::get('code_block');
 
-		if(Input::get('start_date'))
-			$thread->start_date = Input::get('start_date');
-		if(Input::get('end_date'))
-			$thread->end_date = Input::get('end_date');
-
-    	return redirect()->route('thread', ['id' => $thread->id]);
+        $comment->save();
+    	return redirect('thread/' . $comment->thread_id);
     }
 
     public function destroy($id)
     {
-    	$thread = Thread::find($id);
-		$thread->delete();
+    	$comment = Comment::find($id);
+		$comment->delete();
 		return redirect()->back();
     }
 }

@@ -45,6 +45,8 @@ class CommentsController extends Controller
 
 		$comment->description = Input::get('description');
 		$comment->code_block = Input::get('code_block');
+        $comment->thread_id = Input::get('thread_id');
+        $comment->comment_id = Input::get('comment_id');
 		$comment->user_id = \Auth::user()->id;
 
 		$comment->save();

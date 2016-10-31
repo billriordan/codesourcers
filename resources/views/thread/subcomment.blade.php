@@ -15,6 +15,9 @@
 					</div>
 					<div class="user_name">{{$comment->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
 				</div>
+				@if(Auth::check())
+					<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
+				@endif
 		</div>
 	</div>
 </div>

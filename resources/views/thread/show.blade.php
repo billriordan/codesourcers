@@ -58,7 +58,16 @@
 							@else
 								<div class="panel-heading"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
 							@endif
-								<div class="panel-body">{{ $comment->description }}</div>
+								<div class="panel-body">
+								{{ $comment->description }}
+								@if($comment->code_block != "")
+										<pre><code class="code_block">
+											<div class="panel panel-default" style="background-color: #282828; color: #fff">
+										        {{ $comment->code_block }}
+										    </div>
+										</code></pre>
+									@endif
+								</div>
 									<div class="panel-footer">
 										<div class="stars">
 										@foreach($comment->stars($comment->upvotes, $comment->downvotes) as $star)
@@ -68,7 +77,7 @@
 										<div class="user_name">{{$comment->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
 									</div>
 									@if(Auth::check())
-										<button class="button" onclick="openNav($thread->id, $comment->id)">Reply</button>
+										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
 									@endif
 							</div>
 						</div>

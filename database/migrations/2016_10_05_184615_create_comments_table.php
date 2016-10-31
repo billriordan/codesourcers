@@ -20,8 +20,8 @@ class CreateCommentsTable extends Migration
             $table->integer('comment_id'); // for nested comments
             $table->longText('description');
             $table->longText('code_block');
-            $table->integer('upvotes');
-            $table->integer('downvotes');
+            $table->integer('upvotes')->default(0);
+            $table->integer('downvotes')->default(0);
             $table->timestamps();
         });
     }

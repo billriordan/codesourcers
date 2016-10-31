@@ -33,6 +33,13 @@ html {
 	padding-left: 4%;
 }
 
+.button {
+	color: white;
+	background-color: #5691F6;
+	border-color: #5A97C0;
+	width: 100%;
+}
+
 .footer {
 	box-shadow: 0px 0px 10px 0px #222 inset;
 	padding-top: 1%;
@@ -51,4 +58,29 @@ html {
 	font-size: 14px;
 	padding-left: 1%;
 	color: #eee;
+}
+
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+a.closebtn {
+	font-size: 25px;
+	color: white;
+	text-decoration: none;
+}
+a.closebtn:hover {
+	font-size: 25px;
+	color: #999;
+	text-decoration: none;
 }

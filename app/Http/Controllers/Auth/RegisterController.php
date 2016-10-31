@@ -101,7 +101,7 @@ class RegisterController extends Controller
 
         $data['confirmation_code'] = $confirmation_code;
         //MAIL component
-        Mail::send('registeremail', $data, function($message){
+        Mail::send('email.registeremail', $data, function($message){
             $message->to(Input::get('email'), Input::get('name'))->subject('Verify your email address');
         });
 

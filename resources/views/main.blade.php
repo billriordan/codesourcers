@@ -3,11 +3,13 @@
     <head>
         
         @include('partials._head')
-        
+        @yield('stylesheets')
+
     </head>
     
     <body>
-        @include('partials._nav', $state)
+
+        @include('partials._nav')
         
         <div class="container">
 
@@ -20,5 +22,6 @@
     </body>
     
     @include('partials._scripts')
-    
+    @yield('scripts')
+
 </html>

@@ -10,11 +10,12 @@
         
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="@if ($state['home']) active @endif"><a href="/">Home</a></li>
-                <li class="@if ($state['about']) active @endif"><a href="/about">About</a></li>
-                <li class="@if ($state['contact']) active @endif"><a href="/contact">Contact</a></li>
-            </ul>
+
+			<ul class="nav navbar-nav">
+				<li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
+				<li class="{{ Request::is('about') ? 'active' : '' }}"><a href="/about">About</a></li>
+				<li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="/contact">Contact</a></li>
+			</ul>
             
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

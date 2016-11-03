@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\User;
 use App\Comment;
+use App\Tag;
 use Carbon\Carbon;
 use App\Http\Requests;
 
@@ -13,7 +14,8 @@ class ThreadsController extends Controller
 {
     public function index()
     {
-    	$threads = Thread::paginate(20);
+    	//$threads = Thread::paginate(20);
+        $threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->get();
     	//$threads = Thread::with('users')->paginate(20);
     	return view('thread.frontpage', compact('threads'));
     }
@@ -40,7 +42,6 @@ class ThreadsController extends Controller
         $thread = $thread[0];
         //dd($thread);
         //dd($thread->comments[0]->user->name);
-
     	return view('thread.show', compact('thread'));
     }
 
@@ -98,5 +99,15 @@ class ThreadsController extends Controller
     	$thread = Thread::find($id);
 		$thread->delete();
 		return redirect()->back();
+    }
+
+    public function lock($id)
+    {
+        
+            $thread = Thread::find($id);
+            $thread->end_date=Carbon::now();
+            $thread->save();
+        
+        return redirect()->back();
     }
 }

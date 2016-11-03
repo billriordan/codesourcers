@@ -18,41 +18,35 @@
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        Marcus Doe
+                        username here
                     </div>
                     <div class="profile-usertitle-job">
-                        Developer
+                        Email
+                    </div>
+                    <div class="profile-usertitle-job">
+                        User Age here
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div>
-                <!-- END SIDEBAR BUTTONS -->
+
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li class="active">
                             <a href="#">
-                                <i class="glyphicon glyphicon-home"></i>
-                                Overview </a>
+                                <i class="glyphicon glyphicon-stats"></i>
+                                Stats </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings </a>
-                        </li>
+
                         <li>
                             <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks </a>
+                                <i class="glyphicon glyphicon-list-alt"></i>
+                                Threads </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help </a>
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                Comments </a>
                         </li>
                     </ul>
                 </div>
@@ -61,12 +55,34 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                Some user related content goes here...
+                Comments
             </div>
         </div>
+
+        <div class="col-md-9">
+            <div class="profile-content">
+                Threads
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="profile-content">
+                Stats
+            </div>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+
+
+
     </div>
 </div>
 
 <br>
 <br>
+@endsection
+
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
+    <script src="/js/user.js"></script>
 @endsection

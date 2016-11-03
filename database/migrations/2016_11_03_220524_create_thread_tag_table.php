@@ -13,7 +13,14 @@ class CreateThreadTagTable extends Migration
      */
     public function up()
     {
-        //
+         Schema::create('thread_tag', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('thread_id')->unsigned();
+            $table->foreign('thread_id')->references('id')->on('threads');
+
+            $table->integer('tag_id')->unsigned();
+            $table->foreign('tag_id')->references('id')->on('tags');
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateThreadTagTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('thread_tag');
     }
 }

@@ -3,6 +3,7 @@
     <head>
         
         @include('partials._head')
+
         @yield('stylesheets')
 
     </head>
@@ -16,12 +17,13 @@
             @yield('content')
             
             <hr/>
-            <p>Copyright CodeSource 2016</p>
+            <p>Copyright Sourcerer 2016</p>
         </div><!-- /.container -->
         
     </body>
     
     @include('partials._scripts')
+
     @yield('scripts')
 
 </html>

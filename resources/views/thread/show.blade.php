@@ -1,7 +1,6 @@
-@extends('layouts.default')
+@extends('main')
 
 @section('content')
-<div class="banner" id="frontpage_banner">{{$thread->name}}</div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 col-md-offset-2">
@@ -153,12 +152,14 @@
 			</div>
 	</div>
 @endif
-@if(Auth::user()->id == $thread->user_id)
-	<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
-		<div class="edit_thread">Edit Thread</div>
-	</a>
-@endif
 
+@if(Auth::user())
+	@if(Auth::user()->id == $thread->user_id)
+		<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
+			<div class="edit_thread">Edit Thread</div>
+		</a>
+	@endif
+@endif
 <script>
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";

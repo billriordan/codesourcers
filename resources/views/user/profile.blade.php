@@ -18,13 +18,13 @@
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        username here
+                        <b>Name</b> {{$user->name}}
                     </div>
                     <div class="profile-usertitle-job">
-                        Email
+                        <b>Email</b> {{$user->email}}
                     </div>
                     <div class="profile-usertitle-job">
-                        User Age here
+                        <b>Age</b> {{$user->created_at}}
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
@@ -56,12 +56,36 @@
         <div class="col-md-9">
             <div class="profile-content">
                 Comments
+                @foreach($comments as $comment)
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="thread_thumb" id="comment_{{ $comment->id }}">
+                                <div class="panel panel-default">
+                                   {{$comment->description}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
 
         <div class="col-md-9">
             <div class="profile-content">
                 Threads
+                @foreach($threads as $thread)
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="thread_thumb" id="comment_{{ $thread->id }}">
+                                <div class="panel panel-default">
+                                    {{$thread->description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            @endforeach
             </div>
         </div>
 

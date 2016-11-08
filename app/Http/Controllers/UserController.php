@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Thread;
 use Illuminate\Http\Request;
 use App\User;
+use App\Comment;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -47,9 +50,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        //setting up to display user info, comments, and threads
         $user = User::find($id);
-
-        return view('user.profile');
+        $comments = Comment::where('user_id' , $id);
+        $threads = Thread::where('user_id', $id);
+        return view('user.profile', compact('user', 'comments', 'threads'));
     }
 
     /**

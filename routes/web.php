@@ -43,8 +43,4 @@ Route::resource('thread', 'ThreadsController');
 
 Route::resource('comment', 'CommentsController');
 
-Route::get('profile', function(){
-    return view('user.profile');
-});
-
 Route::resource('user','UserController');

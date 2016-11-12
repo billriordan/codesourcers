@@ -11,7 +11,9 @@
     <body>
 
         @include('partials._nav')
-        
+        @if (session()->has('flash_notification.message'))
+        @include('partials._flash')
+        @endif
         <div class="container">
 
             @yield('content')

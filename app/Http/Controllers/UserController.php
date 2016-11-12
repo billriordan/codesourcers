@@ -52,8 +52,8 @@ class UserController extends Controller
     {
         //setting up to display user info, comments, and threads
         $user = User::find($id);
-        $comments = Comment::where('user_id' , $id);
-        $threads = Thread::where('user_id', $id);
+        $comments = Comment::where('user_id' , $id)->get();
+        $threads = Thread::where('user_id', $id)->get();
         return view('user.profile', compact('user', 'comments', 'threads'));
     }
 

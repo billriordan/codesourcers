@@ -55,8 +55,10 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                Comments
-                @foreach($comments as $comment)
+                <h3>Comments</h3>
+                <hr>
+
+            @foreach($comments as $comment)
                     <div class="row">
                         <div class="col-md-8">
                             <div class="thread_thumb" id="comment_{{ $comment->id }}">
@@ -68,13 +70,12 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-        </div>
 
-        <div class="col-md-9">
             <div class="profile-content">
-                Threads
-                @foreach($threads as $thread)
+                <h3>Threads</h3>
+                <hr>
+
+            @foreach($threads as $thread)
                     <div class="row">
                         <div class="col-md-8">
                             <div class="thread_thumb" id="comment_{{ $thread->id }}">
@@ -84,21 +85,17 @@
                             </div>
                         </div>
                     </div>
-            </div>
+
             @endforeach
-            </div>
-        </div>
 
-        <div class="col-md-9">
             <div class="profile-content">
-                Stats
+                <h3>Stats</h3>
+                <hr>
+                <canvas id="myChart" width="400" height="400"></canvas>
             </div>
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-
-
-
+            </div>
     </div>
+
 </div>
 
 <br>

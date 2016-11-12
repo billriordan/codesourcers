@@ -1,103 +1,92 @@
 @extends('main')
 
 @section('stylesheets')
-    <link rel="stylesheet" type="text/css" href="/public/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
 @endsection
 
 
 @section('content')
 <div class="container">
     <div class="row profile">
+
+        <!--Sidebar-->
         <div class="col-md-3">
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+                    <img src="/defaultProfile.png" class="img-responsive" alt="">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        <b>Name</b> {{$user->name}}
-                    </div>
                     <div class="profile-usertitle-job">
-                        <b>Email</b> {{$user->email}}
+                        <b>Username</b>
                     </div>
+                    {{$user->name}}
                     <div class="profile-usertitle-job">
-                        <b>Age</b> {{$user->created_at}}
+                        <b>Email</b>
                     </div>
+                    {{$user->email}}
+                    <div class="profile-usertitle-job">
+                        <b>Age</b>
+                    </div>
+                    <b>{{$date}}</b> Months
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
-
-                <!-- SIDEBAR MENU -->
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-stats"></i>
-                                Stats </a>
-                        </li>
-
-                        <li>
-                            <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-list-alt"></i>
-                                Threads </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                                Comments </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- END MENU -->
             </div>
         </div>
+
+        <!--Content-->
         <div class="col-md-9">
             <div class="profile-content">
                 <h3>Comments</h3>
                 <hr>
 
-            @foreach($comments as $comment)
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="thread_thumb" id="comment_{{ $comment->id }}">
-                                <div class="panel panel-default">
-                                   {{$comment->description}}
+                <ol>
+                @foreach($comments as $comment)
+                        <div class="row">
+                            <div class="col-md-8">
+                                <li><a href="#" data-toggle="collapse" data-target="#comment">{{$comment->created_at}}</a></li>
+                                <div id="comment" class="collapse">
+                                    <div class="thread_thumb">
+                                        <div class="panel panel-default">
+                                             {{$comment->description}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 @endforeach
+                </ol>
 
-            <div class="profile-content">
-                <h3>Threads</h3>
-                <hr>
 
-            @foreach($threads as $thread)
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="thread_thumb" id="comment_{{ $thread->id }}">
-                                <div class="panel panel-default">
-                                    {{$thread->description}}
+                <h3>Threads</h3><hr>
+
+                <ol>
+                @foreach($threads as $thread)
+                        <div class="row">
+                            <div class="col-md-8">
+                                <li><a href="#" data-toggle="collapse" data-target="#thread{{$thread->id}}">{{$thread->created_at}}</a></li>
+                                <div id="thread{{$thread->id}}" class="collapse">
+                                    <div class="thread_thumb">
+                                        <div class="panel panel-default">
+                                            {{$thread->description}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                @endforeach
+                </ol>
 
-            @endforeach
 
-            <div class="profile-content">
-                <h3>Stats</h3>
-                <hr>
+                <h3>Stats</h3><hr>
                 <canvas id="myChart" width="400" height="400"></canvas>
+
             </div>
-            </div>
+        </div>
     </div>
-
 </div>
-
 <br>
 <br>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use App\Comment;
@@ -54,7 +55,10 @@ class UserController extends Controller
         $user = User::find($id);
         $comments = Comment::where('user_id' , $id)->get();
         $threads = Thread::where('user_id', $id)->get();
-        return view('user.profile', compact('user', 'comments', 'threads'));
+
+        $date = Carbon::createFromDate(2018,1,1);
+        $date= $date->diffInMonths($user->created_at);
+        return view('user.profile', compact('user', 'comments', 'threads', 'date'));
     }
 
     /**
@@ -90,4 +94,5 @@ class UserController extends Controller
     {
         //
     }
+
 }

@@ -18,6 +18,9 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
 
+.navbar {
+    border-radius: 0px;
+}
 
 .banner {
 	box-shadow: 0px 0px 10px 0px #222 inset;

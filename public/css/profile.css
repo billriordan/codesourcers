@@ -2,6 +2,10 @@ body {
     background: #666699;
 }
 
+.navbar {
+    border-radius: 0px;
+}
+
 /* Profile container */
 .profile {
     margin: 20px 0;

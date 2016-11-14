@@ -29,13 +29,6 @@
 </head>
 <body id="app-layout">
 
-@if (session()->has('flash_notification.message'))
-    <div class="alert alert-{{ session('flash_notification.level') }}">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
-        {!! session('flash_notification.message') !!}
-    </div>
-@endif
     <nav class="navigation">
         <div class="container">
             <div class="navbar-header">

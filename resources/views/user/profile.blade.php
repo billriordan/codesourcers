@@ -1,72 +1,98 @@
 @extends('main')
 
 @section('stylesheets')
-    <link rel="stylesheet" type="text/css" href="/public/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
 @endsection
 
 
 @section('content')
 <div class="container">
     <div class="row profile">
+
+        <!--Sidebar-->
         <div class="col-md-3">
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+                    <img src="/defaultProfile.png" class="img-responsive" alt="">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        Marcus Doe
-                    </div>
                     <div class="profile-usertitle-job">
-                        Developer
+                        <b>Username</b>
                     </div>
+                    {{$user->name}}
+                    <div class="profile-usertitle-job">
+                        <b>Email</b>
+                    </div>
+                    {{$user->email}}
+                    <div class="profile-usertitle-job">
+                        <b>Age</b>
+                    </div>
+                    <b>{{$date}}</b> Months
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div>
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-home"></i>
-                                Overview </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings </a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- END MENU -->
             </div>
         </div>
+
+        <!--Content-->
         <div class="col-md-9">
             <div class="profile-content">
-                Some user related content goes here...
+                <h3>Comments</h3>
+                <hr>
+
+                <ol>
+                @foreach($comments as $comment)
+                        <div class="row">
+                            <div class="col-md-8">
+                                <li><a href="#" data-toggle="collapse" data-target="#comment">{{$comment->created_at}}</a></li>
+                                <div id="comment" class="collapse">
+                                    <div class="thread_thumb">
+                                        <div class="panel panel-default">
+                                             {{$comment->description}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                @endforeach
+                </ol>
+
+
+                <h3>Threads</h3><hr>
+
+                <ol>
+                @foreach($threads as $thread)
+                        <div class="row">
+                            <div class="col-md-8">
+                                <li><a href="#" data-toggle="collapse" data-target="#thread{{$thread->id}}">{{$thread->created_at}}</a></li>
+                                <div id="thread{{$thread->id}}" class="collapse">
+                                    <div class="thread_thumb">
+                                        <div class="panel panel-default">
+                                            {{$thread->description}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                @endforeach
+                </ol>
+
+
+                <h3>Stats</h3><hr>
+                <canvas id="myChart" width="400" height="400"></canvas>
+
             </div>
         </div>
     </div>
 </div>
+<br>
+<br>
+@endsection
 
-<br>
-<br>
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
+    <script src="/js/user.js"></script>
 @endsection

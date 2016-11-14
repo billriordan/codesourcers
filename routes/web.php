@@ -43,6 +43,7 @@ Route::resource('thread', 'ThreadsController');
 
 Route::resource('comment', 'CommentsController');
 
+<<<<<<< HEAD
 Route::resource('tag', 'TagsController');
 
 Route::post('thread/{$id}/lock', 'ThreadsController@lock')->middleware('auth');
@@ -50,3 +51,6 @@ Route::post('thread/{$id}/lock', 'ThreadsController@lock')->middleware('auth');
 Route::get('profile', function(){
     return view('user.profile');
 });
+=======
+Route::resource('user','UserController');
+>>>>>>> ad917b6466b7da7c061adcdb69dbd6899e2fedb0

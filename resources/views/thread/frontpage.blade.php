@@ -1,10 +1,7 @@
-@extends('layouts.default')
+@extends('main')
 
 @section('content')
 
-<div class="banner" id="frontpage_banner">
-Frontpage
-</div>
 @if(Auth::user())
 	<a href="{{url('/thread/create')}}">
 		<div class="create_thread">Create Thread</div>

@@ -12,7 +12,7 @@
 */
 
 // static pages
-Route::get('/', 'PagesController@home');
+Route::get('/', 'ThreadsController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
 
@@ -43,6 +43,4 @@ Route::resource('thread', 'ThreadsController');
 
 Route::resource('comment', 'CommentsController');
 
-Route::get('profile', function(){
-    return view('user.profile');
-});
+Route::resource('user','UserController');

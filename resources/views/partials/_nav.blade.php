@@ -28,10 +28,13 @@
                                 <span class="caret"></span>
                     </a><ul class="dropdown-menu">
                         
+                        @if(Auth::check())
+                        <li><a href="/user/{{Auth::user()->id}}">My Page</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        @else
                         <li><a href="/register">Register</a></li>
                         <li><a href="/login">Login</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/logout">Logout</a></li>
+                        @endif
                     </ul>
                 </li>
             </ul>

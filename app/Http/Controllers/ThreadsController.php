@@ -47,14 +47,16 @@ class ThreadsController extends Controller
 
     public function create()
     {
+
         if(\Auth::check())
         {
-            return view('thread.create');
+            $tags = Tag::all();
+            return view('thread.create')->withTags($tags);
         }
         else return redirect()->back();
     }
 
-    public function store()
+    public function store(Request $request)
     {
     	$thread = new Thread();
 
@@ -69,13 +71,24 @@ class ThreadsController extends Controller
 			$thread->end_date = Input::get('end_date');
 
 		$thread->save();
+
+       //links tags to thread
+       $thread->tags()->sync($request->tags,false);
+    
+
     	return redirect('/');
     }
 
     public function edit($id)
     {
     	$thread = Thread::find($id);
-    	return view('thread.edit', compact('thread'));
+        $tags = Tag::all();
+        $tags2 = array();
+        foreach ($tags as $tag) {
+            $tags2[$tag->id] = $tag->name;
+        }
+
+    	return view('thread.edit', compact('thread'))->withTags($tags2);
     }
 
     public function update($id)

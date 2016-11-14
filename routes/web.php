@@ -43,6 +43,8 @@ Route::resource('thread', 'ThreadsController');
 
 Route::resource('comment', 'CommentsController');
 
+Route::resource('tag', 'TagsController');
+
 Route::post('thread/{$id}/lock', 'ThreadsController@lock')->middleware('auth');
 
 Route::get('profile', function(){

@@ -25,6 +25,15 @@
 							<label class="col-md-4 control-label">Thread Name</label>
 							{{ Form::text('name') }}
 						</div>
+						
+						<div> 
+							<label class="col-md-4 control-label">Tags</label>
+							<select class="form-group" name="tags[]" multiple="multiple">
+								@foreach($tags as $tag)
+									<option value='{{ $tag->id }}'>{{ $tag->name }}</option>
+								@endforeach
+							</select>
+						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Description</label>

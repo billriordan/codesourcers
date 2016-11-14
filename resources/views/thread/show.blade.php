@@ -10,7 +10,7 @@
 					<div class="thread_body" id="thread_{{ $thread->id }}">
 						<div class="panel panel-default">
 					        <div class="panel-heading">{{$thread->name}}</div>
-					
+
 					        <div class="panel-body"> {{ $thread->description }}</div>
 					        	<div class="panel-footer">
 									@if($thread->user->is_admin)
@@ -44,6 +44,12 @@
 				</div>
 			</div>
 		@endif
+
+		<div class="panel-tags">
+        	@foreach($thread->tags as $tag)
+				<span class="label label-default">{{ $tag->name }}</span>
+        	@endforeach
+        </div>
 	<br>
 	
 			<div class="row">

@@ -12,12 +12,18 @@ use App\Http\Requests;
 
 class TagsController extends Controller
 {
+    public function index()
+    {
+        $tags = Tag::all();
+        return view('thread.create')->withTags($tags);
+    }
+
 
     public function create()
     {
         if(\Auth::check())
         {
-            return view('thread.edit');
+            return view('thread.create');
         }
         else return redirect()->back();
     }

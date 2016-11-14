@@ -27,6 +27,11 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Tags</label>
+							{{ Form::select('tags[]', $tags, null, ['multiple'=> 'multiple']) }}
+						</div>
+
+						<div class="form-group">
 							<label class="col-md-4 control-label">Description</label>
 							{{ Form::textarea('description', $thread->description) }}
 						</div>

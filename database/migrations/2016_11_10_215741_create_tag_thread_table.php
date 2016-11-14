@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateThreadTagTable extends Migration
+class CreateTagThreadTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateThreadTagTable extends Migration
      */
     public function up()
     {
-         Schema::create('thread_tag', function (Blueprint $table) {
+        Schema::create('tag_thread', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('thread_id')->unsigned();
             $table->foreign('thread_id')->references('id')->on('threads');
@@ -30,6 +30,8 @@ class CreateThreadTagTable extends Migration
      */
     public function down()
     {
-        Schema::drop('thread_tag');
+       Schema::drop('tag_thread');
     }
 }
+
+

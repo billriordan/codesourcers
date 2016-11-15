@@ -47,10 +47,11 @@ class ThreadsController extends Controller
 
     public function create()
     {
+        $tags = Tag::all();
 
         if(\Auth::check())
         {
-            $tags = Tag::all();
+            
             return view('thread.create')->withTags($tags);
         }
         else return redirect()->back();

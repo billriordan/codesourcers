@@ -18,8 +18,18 @@ class CreateTagsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-    }
+    
 
+    DB::table('tags')->insert(
+       array('name' => 'JAVA'));
+
+    DB::table('tags')->insert(
+       array('name' => 'C++'));
+
+    DB::table('tags')->insert(
+       array('name' => 'PHP'));
+
+}
     /**
      * Reverse the migrations.
      *

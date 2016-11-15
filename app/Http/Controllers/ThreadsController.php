@@ -92,7 +92,7 @@ class ThreadsController extends Controller
     	return view('thread.edit', compact('thread'))->withTags($tags2);
     }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
     	$thread = Thread::find($id);
     	$thread->name = Input::get('name');
@@ -105,6 +105,10 @@ class ThreadsController extends Controller
 			$thread->end_date = Input::get('end_date');
 
         $thread->save();
+
+        //updates tag thread links
+        $thread->tags()->sync($request->tags,true);
+
     	return redirect('thread/' . $id);
     }
 

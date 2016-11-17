@@ -46,8 +46,8 @@
                 @foreach($comments as $comment)
                         <div class="row">
                             <div class="col-md-8">
-                                <li><a href="#" data-toggle="collapse" data-target="#comment">{{$comment->created_at}}</a></li>
-                                <div id="comment" class="collapse">
+                                <li><a href="#" data-toggle="collapse" data-target="#comment{{$comment->id}}">{{$comment->created_at->toDayDateTimeString()}}</a></li>
+                                <div id="comment{{$comment->id}}" class="collapse">
                                     <div class="thread_thumb">
                                         <div class="panel panel-default">
                                              {{$comment->description}}

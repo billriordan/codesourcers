@@ -19,7 +19,9 @@
             @yield('content')
             
             <hr/>
-            <p>Copyright Sourcerer 2016</p>
+            <div class="footer">
+                <p>Copyright Sourcerer 2016</p>
+            </div>
         </div><!-- /.container -->
         
     </body>

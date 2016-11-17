@@ -44,3 +44,4 @@ Route::resource('thread', 'ThreadsController');
 Route::resource('comment', 'CommentsController');
 
 Route::resource('user','UserController');
+

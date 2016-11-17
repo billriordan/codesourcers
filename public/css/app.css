@@ -22,7 +22,7 @@ html {
     border-radius: 0px;
 }
 body{
-	background-color: #9494b8;
+	background-color: #666699;
 }
 .banner {
 	box-shadow: 0px 0px 10px 0px #222 inset;
@@ -45,19 +45,33 @@ body{
 	width: 100%;
 }
 
+p {
+	color: white;
+}
+
+.m-b-md {
+	color: white;
+}
+
 .footer {
 	color: white;
 }
 
-.footer ul {
+.links ul {
 	font-size: 16px;
 	list-style: none;
 }
 
-.footer li {
+.links li {
 	font-size: 14px;
 	padding-left: 1%;
 	color: #eee;
+}
+
+.links li a {
+	font-size: 14px;
+	padding-left: 1%;
+	color: #ccc;
 }
 
 

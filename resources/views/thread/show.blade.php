@@ -38,6 +38,7 @@
 				<div class="col-md-8">
 					<pre><code class="code_block">
 						<div class="panel panel-default" style="background-color: #282828; color: #fff">
+
 					        <div class="panel-body"> {{ $thread->code_block }}</div>
 					    </div>
 					</code></pre>

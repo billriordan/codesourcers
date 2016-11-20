@@ -14,10 +14,11 @@ class ThreadsController extends Controller
 {
     public function index()
     {
+        $tags = Tag::all();
     	//$threads = Thread::paginate(20);
         $threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->get();
     	//$threads = Thread::with('users')->paginate(20);
-    	return view('thread.frontpage', compact('threads'));
+    	return view('thread.frontpage', compact('threads'))->withTags($tags);
     }
 
     public function show($id)
@@ -47,10 +48,11 @@ class ThreadsController extends Controller
 
     public function create()
     {
+        $tags = Tag::all();
 
         if(\Auth::check())
         {
-            $tags = Tag::all();
+            
             return view('thread.create')->withTags($tags);
         }
         else return redirect()->back();
@@ -91,7 +93,7 @@ class ThreadsController extends Controller
     	return view('thread.edit', compact('thread'))->withTags($tags2);
     }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
     	$thread = Thread::find($id);
     	$thread->name = Input::get('name');
@@ -104,6 +106,10 @@ class ThreadsController extends Controller
 			$thread->end_date = Input::get('end_date');
 
         $thread->save();
+
+        //updates tag thread links
+        $thread->tags()->sync($request->tags,true);
+
     	return redirect('thread/' . $id);
     }
 

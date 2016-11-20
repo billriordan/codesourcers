@@ -52,3 +52,7 @@ Route::get('profile', function(){
 });
 
 Route::resource('user','UserController');
+<<<<<<< HEAD
+=======
+
+>>>>>>> tagging

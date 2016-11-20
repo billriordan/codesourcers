@@ -14,10 +14,11 @@ class ThreadsController extends Controller
 {
     public function index()
     {
+        $tags = Tag::all();
     	//$threads = Thread::paginate(20);
         $threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->get();
     	//$threads = Thread::with('users')->paginate(20);
-    	return view('thread.frontpage', compact('threads'));
+    	return view('thread.frontpage', compact('threads'))->withTags($tags);
     }
 
     public function show($id)

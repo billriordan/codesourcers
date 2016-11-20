@@ -58,6 +58,7 @@ class UserController extends Controller
 
         $date = Carbon::createFromDate(2018,1,1);
         $date= $date->diffInMonths($user->created_at);
+
         return view('user.profile', compact('user', 'comments', 'threads', 'date'));
     }
 

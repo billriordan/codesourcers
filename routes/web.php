@@ -40,6 +40,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Route::get('/', 'ThreadsController@index');
 
 Route::resource('thread', 'ThreadsController');
+Route::get('thread/{id}/lock', 'ThreadsController@lock');
 
 Route::resource('comment', 'CommentsController');
 

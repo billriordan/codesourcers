@@ -4,12 +4,10 @@
 // Any of the following formats may be used
 var ctx = document.getElementById("myChart");
 var url = document.URL;
-
-//ajax call to create our chart
 if(url.substr(url.length-1) === "#")
     url = url.substr(0,url.length-1);
 
-
+//ajax call to create our chart
 $.ajax({
     url: url+="/comments",
     method: "GET",
@@ -24,7 +22,7 @@ $.ajax({
                     "October", "November", "December"],
                 datasets: [
                     {
-                        label: '# of Votes',
+                        label: '# of Comments',
                         data: dataSet,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -63,7 +61,7 @@ function processComments(data) {
 
     for(var i = 0; i < data.length; i++){
         var date = new Date(data[i].created_at);
-        var month = date.getMonth();
+        var month = date.getMonth() + 1;
 
         switch(month) {
             case 1:

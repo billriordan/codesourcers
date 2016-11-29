@@ -10,7 +10,7 @@
 <div class="col-md-1" style="float:right">
 	
 
-<form class="form-horizontal" role="form" method="GET" action="sort.blade.php">
+<form class="form-horizontal" role="form" method="POST" action="sort.blade.php">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						
 						<div class="form-group"> 
@@ -20,22 +20,13 @@
 								@endforeach
 							</select>
 						</div>
-						<div class="form-group" >
+						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">Sort</button>
 							</div>
 						</div>
 					</form>
 
-
-
-	<!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color: gray;">Dropdown Example
-	  <span class="caret"></span></button>
-	  <ul class="dropdown-menu">
-			@foreach($tags as $tag)
-				<li><a href="{{url('/', 'sort')}}">{{ $tag->name }}</li>
-			@endforeach
-	  </ul>-->
 </div>
 <div class="row">
 		<div class="col-md-12 col-md-offset-2">

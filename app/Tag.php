@@ -8,6 +8,6 @@ class Tag extends Model
 {
     public function thread()
     {
-    	return $this->belongsToMany('App\Thread');
+    	return $this->belongsToMany('App\Thread')->withPivot('tag_id');
     }
 }

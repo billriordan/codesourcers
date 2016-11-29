@@ -15,6 +15,8 @@
 Route::get('/', 'ThreadsController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
+//sorted threads
+Route::get('/sort.blade.php', 'ThreadsController@sort');
 
 //Registration routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm');
@@ -52,7 +54,4 @@ Route::get('profile', function(){
 });
 
 Route::resource('user','UserController');
-<<<<<<< HEAD
-=======
 
->>>>>>> tagging

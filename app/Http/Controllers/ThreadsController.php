@@ -49,7 +49,6 @@ class ThreadsController extends Controller
     public function create()
     {
         $tags = Tag::all();
-
         if(\Auth::check())
         {
             
@@ -122,11 +121,36 @@ class ThreadsController extends Controller
 
     public function lock($id)
     {
-        
             $thread = Thread::find($id);
             $thread->end_date=Carbon::now();
             $thread->save();
         
         return redirect()->back();
+    }
+
+    public function sort(Request $request)
+    {
+
+        $tags = Tag::all();
+        
+        dd($request);
+
+        /*$threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->with(
+                    [
+                        'tags' => function($query)
+                        {
+                            $query->where('tag_id' , 1);
+                        }
+                    ])->get();*/
+
+      // $threads = Thread::join('tag_thread', 'tag_thread.thread_id', '=', 'threads.id')->where('tag_thread.tag_id', '=', 1)->get();
+
+        $threads = Thread::whereHas('tags', function($q)
+            {
+                $q->whereIn('tags.id', array(1));
+            })->get();
+        
+
+        return view('thread.sort', compact('threads'))->withTags($tags);
     }
 }

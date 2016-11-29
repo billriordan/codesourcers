@@ -14,35 +14,23 @@ class ThreadsController extends Controller
 {
     public function index()
     {
-    	//$threads = Thread::paginate(20);
-        $threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->get();
-    	//$threads = Thread::with('users')->paginate(20);
-    	return view('thread.frontpage', compact('threads'));
+        $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '>=', Carbon::now())->simplePaginate(2);
+        $tags = Tag::all();
+    	return view('thread.frontpage', compact('threads', 'tags'));
     }
 
     public function show($id)
     {
-    	//$thread = Thread::where('id', $id)->with('comments')->limit(1)->get();
         $thread = Thread::where('id', $id)->with(
                     [
                         'comments' => function($query)
                         {
                             $query->where('comment_id' , 0)->with('comments', 'comments.comments', 'comments.comments.comments');
-                            /*
-                            // ad infinitum //
-                            $query->where('comment_id' , 0)->with([
-                                                            'comments' => function($query)
-                                                            {
-                                                                $query->where('comment_id', '>' , 0)->with('comments');
-                                                            }
-                            // ad infinitum //
-                            */
                         }
                     ])->limit(1)->get();
         $thread = $thread[0];
-        //dd($thread);
-        //dd($thread->comments[0]->user->name);
-    	return view('thread.show', compact('thread'));
+        $tags = Tag::all();
+    	return view('thread.show', compact('thread', 'tags'));
     }
 
     public function create()
@@ -51,7 +39,6 @@ class ThreadsController extends Controller
 
         if(\Auth::check())
         {
-            
             return view('thread.create')->withTags($tags);
         }
         else return redirect()->back();
@@ -71,11 +58,8 @@ class ThreadsController extends Controller
 		if(Input::get('end_date'))
 			$thread->end_date = Input::get('end_date');
 
+        $thread->tag_id = Input::get('tags')[0];
 		$thread->save();
-
-       //links tags to thread
-       $thread->tags()->sync($request->tags,false);
-    
 
     	return redirect('/');
     }
@@ -104,10 +88,8 @@ class ThreadsController extends Controller
 		if(Input::get('end_date'))
 			$thread->end_date = Input::get('end_date');
 
+        $thread->tag_id = Input::get('tags')[0];
         $thread->save();
-
-        //updates tag thread links
-        $thread->tags()->sync($request->tags,true);
 
     	return redirect('thread/' . $id);
     }

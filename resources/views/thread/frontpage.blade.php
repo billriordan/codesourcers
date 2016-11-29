@@ -18,9 +18,7 @@
 		                <div class="panel-body"> {{ $thread->description }}</div>
 
 		                <div class="panel-tags">
-				        	@foreach($thread->tags as $tag)
-								<span class="label label-default">{{ $tag->name }}</span>
-				        	@endforeach
+								<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>
 						</div>
 	    		    </div>
 				</div>
@@ -29,6 +27,13 @@
 		@endforeach
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-md-8" style="text-align: center">
+		{{$threads->links()}}
+	</div>
+</div>
+
 @endsection
 
 <script>

@@ -85,10 +85,10 @@
 
 
                 <h3>Stats</h3><hr>
-                <canvas id="myChart" width="400" height="400"></canvas>
+                <canvas id="myChart" width="50" height="50"></canvas>
 
                 <h3>Tags</h3><hr>
-                <canvas id="tagChart" width="400" height="400"></canvas>
+                <canvas id="tagChart" width="50" height="50"></canvas>
 
             </div>
         </div>

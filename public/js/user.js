@@ -3,6 +3,7 @@
  */
 // Any of the following formats may be used
 var ctx = document.getElementById("myChart");
+var tctx = document.getElementById("tagChart");
 var url = document.URL;
 if(url.substr(url.length-1) === "#")
     url = url.substr(0,url.length-1);
@@ -55,52 +56,52 @@ $.ajax({
     }
 });
 //ajax call to create our chart
-// $.ajax({
-//     url: url+"/tags",
-//     method: "GET",
-//     dataType: "json",
-//     success: function (data) {
-//         var dataSet = processComments(data);
-//         console.log(data);
-//         var myChart = new Chart(ctx, {
-//             type: 'bar',
-//             data: {
-//                 labels: ["C++", "JAVA", "PHP"],
-//                 datasets: [
-//                     {
-//                         label: '# of Comments',
-//                         data: dataSet,
-//                         backgroundColor: [
-//                             'rgba(255, 99, 132, 0.2)',
-//                             'rgba(54, 162, 235, 0.2)',
-//                             'rgba(255, 206, 86, 0.2)',
-//                             'rgba(75, 192, 192, 0.2)',
-//                             'rgba(153, 102, 255, 0.2)',
-//                             'rgba(255, 159, 64, 0.2)'
-//                         ],
-//                         borderColor: [
-//                             'rgba(255,99,132,1)',
-//                             'rgba(54, 162, 235, 1)',
-//                             'rgba(255, 206, 86, 1)',
-//                             'rgba(75, 192, 192, 1)',
-//                             'rgba(153, 102, 255, 1)',
-//                             'rgba(255, 159, 64, 1)'
-//                         ],
-//                         borderWidth: 1
-//                     }]
-//             },
-//             options: {
-//                 scales: {
-//                     yAxes: [{
-//                         ticks: {
-//                             beginAtZero: true
-//                         }
-//                     }]
-//                 }
-//             }
-//         });
-//     }
-// });
+$.ajax({
+    url: url+"/tags",
+    method: "GET",
+    dataType: "json",
+    success: function (data) {
+        var dataSet = processTags(data);
+        console.log(data);
+        var myChart = new Chart(tctx, {
+            type: 'bar',
+            data: {
+                labels: ["JAVA", "C++", "PHP"],
+                datasets: [
+                    {
+                        label: '# of Tags',
+                        data: dataSet,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+});
 
 function processComments(data) {
     var processedData = new Uint8Array(12);
@@ -152,3 +153,20 @@ function processComments(data) {
 }
 
 
+function processTags(data){
+    var processedData = new Uint8Array(3);
+
+    for(var i = 0; i < data.length; i++){
+        if(data[i].tag_id == 1){
+            processedData[0]++;
+        }
+        if(data[i].tag_id == 2){
+            processedData[1]++;
+        }
+        if(data[i].tag_id == 3){
+            processedData[2]++;
+        }
+    }
+
+    return processedData;
+}

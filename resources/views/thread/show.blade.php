@@ -9,9 +9,15 @@
 				<div class="col-md-8">
 					<div class="thread_body" id="thread_{{ $thread->id }}">
 						<div class="panel panel-default">
-					        <div class="panel-heading">{{$thread->name}}</div>
+					        <div class="panel-heading">
+					        {{$thread->name}}
+					        <div class="upvotes" style="display: inline; float:right">[up] [down]</div></div>
 
 					        <div class="panel-body"> {{ $thread->description }}</div>
+					        <div class="panel-tags">
+        						<div class="panel-tags">
+									<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>
+								</div>
 					        	<div class="panel-footer">
 									@if($thread->user->is_admin)
 										<div class="is_admin" style="background-color: #aaFFcc">admin</div>
@@ -26,7 +32,7 @@
 									</div>
 									<div class="user_name">{{$thread->user->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
 								</div>
-							@if(Auth::check())
+							@if(Auth::check() && $thread->end_date < \Carbon\Carbon::now()->timezone('America/Chicago'))
 								<button class="button" onclick="openNav('{{$thread->id}}', 0)">Reply</button>
 							@endif
 					    </div>
@@ -34,6 +40,7 @@
 				</div>
 			</div>
 		@if($thread->code_block != "")
+
 			<div class="row">
 				<div class="col-md-8">
 					<pre><code class="code_block">
@@ -45,12 +52,6 @@
 				</div>
 			</div>
 		@endif
-
-		<div class="panel-tags">
-        	@foreach($thread->tags as $tag)
-				<span class="label label-default">{{ $tag->name }}</span>
-        	@endforeach
-        </div>
 	<br>
 	
 	@if(Auth::user()->id == $thread->user->id || Auth::user()->is_admin)
@@ -94,7 +95,7 @@
 										</div>
 										<div class="user_name">{{$comment->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
 									</div>
-									@if(Auth::check())
+									@if(Auth::check() && $thread->end_date < \Carbon\Carbon::now()->timezone('America/Chicago'))
 										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
 									@endif
 							</div>

@@ -10,6 +10,7 @@
 <div class="col-md-1" style="float:right">
 	
 
+<<<<<<< HEAD
 <form class="form-horizontal" role="form" method="GET" action="sort.blade.php">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						
@@ -24,6 +25,10 @@
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">Sort</button>
 							</div>
+=======
+		                <div class="panel-tags">
+								<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>
+>>>>>>> 6d776c6f0ebe7c75765f063fd76dc57b4eb4d818
 						</div>
 					</form>
 
@@ -59,5 +64,10 @@
 			</div>
 			@endforeach
 		</div>
+</div>
+<div class="row">
+	<div class="col-md-8" style="text-align: center">
+		{{$threads->links()}}
+	</div>
 </div>
 @endsection

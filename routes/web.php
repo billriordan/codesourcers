@@ -44,5 +44,15 @@ Route::get('thread/{id}/lock', 'ThreadsController@lock');
 
 Route::resource('comment', 'CommentsController');
 
+Route::resource('tag', 'TagsController');
+
+Route::post('thread/{$id}/lock', 'ThreadsController@lock')->middleware('auth');
+
+Route::get('profile', function(){
+    return view('user.profile');
+});
+
 Route::resource('user','UserController');
+
+Route::get('user/{id}/comments','UserController@getComments');
 

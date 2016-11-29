@@ -132,13 +132,4 @@ class ThreadsController extends Controller
 		return redirect()->back();
     }
 
-    public function lock($id)
-    {
-        
-            $thread = Thread::find($id);
-            $thread->end_date=Carbon::now();
-            $thread->save();
-        
-        return redirect()->back();
-    }
 }

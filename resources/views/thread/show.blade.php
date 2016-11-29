@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		@endif
-			
+
 		<div class="panel-tags">
         	@foreach($thread->tags as $tag)
 				<span class="label label-default">{{ $tag->name }}</span>

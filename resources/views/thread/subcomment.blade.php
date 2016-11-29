@@ -15,7 +15,7 @@
 					</div>
 					<div class="user_name">{{$comment->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
 				</div>
-				@if(Auth::check())
+				@if(Auth::check() && $thread->end_date < \Carbon\Carbon::now()->timezone('America/Chicago'))
 					<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
 				@endif
 		</div>

@@ -31,6 +31,10 @@
                         <b>Age</b>
                     </div>
                     <b>{{$date}}</b> Months
+                    <div class="profile-usertitle-job">
+                        <b>Karma rating</b>
+                    </div>
+                    <b>{{$karma}}</b>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
             </div>

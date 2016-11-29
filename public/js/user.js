@@ -14,7 +14,6 @@ $.ajax({
     dataType: "json",
     success: function (data) {
         var dataSet = processComments(data);
-        console.log(dataSet);
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {

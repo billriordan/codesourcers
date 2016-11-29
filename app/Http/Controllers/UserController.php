@@ -58,10 +58,14 @@ class UserController extends Controller
         $comments = Comment::where('user_id' , $id)->get();
         $threads = Thread::where('user_id', $id)->get();
 
-        $date = Carbon::createFromDate(2018,1,1);
-        $date= $date->diffInMonths($user->created_at);
+        $date = Carbon::parse($user->created_at);
+        $date = $date->diffInMonths($user->created_at);
 
-        return view('user.profile', compact('user', 'comments', 'threads', 'date'));
+        $karma = 0.0;
+        if($user->downvotes != 0)
+            $karma = ($user->upvotes)/($user->downvotes);
+
+        return view('user.profile', compact('user', 'comments', 'threads', 'date', 'karma'));
     }
 
     /**

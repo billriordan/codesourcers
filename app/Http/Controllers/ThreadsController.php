@@ -114,4 +114,15 @@ class ThreadsController extends Controller
 		return redirect()->back();
     }
 
+    public function upvote($id) {
+    	$thread = Thread::find($id);
+		$thread->upvote += 1;
+		$thread->save();
+	}
+
+    public function downvote($id) {
+    	$thread = Thread::find($id);
+		$thread->downvote += 1;
+		$thread->save();
+	}
 }

@@ -56,3 +56,5 @@ Route::resource('user','UserController');
 
 Route::get('user/{id}/comments','UserController@getComments');
 
+Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
+Route::get('thread/{id}/downvote', 'ThreadsController@downvote');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\TagThread;
 use App\Thread;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -74,11 +75,31 @@ class UserController extends Controller
      */
     public function getComments($id){
         $result = Comment::where('user_id', $id)->get();
-        Log::debug('ID' . $id);
-        Log::debug('User obj' . $result);
         return response($result);
 
     }
+
+    /**
+     * Grabs User Tags
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getTags($id){
+        //first get all threads
+        $threads = Thread::where('user_id', $id)->get();
+        Log::debug('THREADS' . $threads);
+        //then for each thread, get all tags matched by all thread id's
+
+        $tags = TagThread::where('thread_id', $threads->id)->get();
+        //return that collection
+        Log::debug('Tags' . $tags);
+
+        return response($tags);
+    }
+
+
+
     /**
      * Show the form for editing the specified resource.
      *

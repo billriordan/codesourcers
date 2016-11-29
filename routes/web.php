@@ -55,4 +55,5 @@ Route::get('profile', function(){
 Route::resource('user','UserController');
 
 Route::get('user/{id}/comments','UserController@getComments');
+Route::get('user/{id}/tags','UserController@getTags');
 

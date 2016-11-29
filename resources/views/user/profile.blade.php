@@ -86,7 +86,10 @@
 
                 <h3>Stats</h3><hr>
                 <canvas id="myChart" width="400" height="400"></canvas>
-                <div id="demo"></div>
+
+                <h3>Tags</h3><hr>
+                <canvas id="tagChart" width="400" height="400"></canvas>
+
             </div>
         </div>
     </div>

@@ -3,9 +3,8 @@
 @section('content')
 
 @if(Auth::user())
-	<a href="{{url('/thread/create')}}">
-		<div class="create_thread">Create Thread</div>
-	</a>
+	<button type="button" class="btn btn-primary" id="createThread" onclick="createThread()">
+		Create Thread</button>-
 @endif
 <div class="row">
 	<div class="col-md-12 col-md-offset-2">
@@ -31,3 +30,9 @@
 	</div>
 </div>
 @endsection
+
+<script>
+	function createThread(){
+		window.location="{{URL::to('/thread/create')}}";
+	}
+</script>

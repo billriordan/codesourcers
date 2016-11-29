@@ -57,3 +57,5 @@ Route::resource('user','UserController');
 Route::get('user/{id}/comments','UserController@getComments');
 Route::get('user/{id}/tags','UserController@getTags');
 
+
+Route::get('user/{id}/settings', 'SettingsController@show');

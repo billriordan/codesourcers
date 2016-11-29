@@ -44,3 +44,5 @@ Route::resource('thread', 'ThreadsController');
 Route::resource('comment', 'CommentsController');
 
 Route::resource('user','UserController');
+Route::get('user/{id}/comments','UserController@getComments');
+

@@ -46,8 +46,8 @@
                 @foreach($comments as $comment)
                         <div class="row">
                             <div class="col-md-8">
-                                <li><a href="#" data-toggle="collapse" data-target="#comment">{{$comment->created_at}}</a></li>
-                                <div id="comment" class="collapse">
+                                <li><a href="#" data-toggle="collapse" data-target="#comment{{$comment->id}}">{{$comment->created_at->toDayDateTimeString()}}</a></li>
+                                <div id="comment{{$comment->id}}" class="collapse">
                                     <div class="thread_thumb">
                                         <div class="panel panel-default">
                                              {{$comment->description}}
@@ -66,7 +66,7 @@
                 @foreach($threads as $thread)
                         <div class="row">
                             <div class="col-md-8">
-                                <li><a href="#" data-toggle="collapse" data-target="#thread{{$thread->id}}">{{$thread->created_at}}</a></li>
+                                <li><a href="#" data-toggle="collapse" data-target="#thread{{$thread->id}}">{{$thread->created_at->toDayDateTimeString()}}</a></li>
                                 <div id="thread{{$thread->id}}" class="collapse">
                                     <div class="thread_thumb">
                                         <div class="panel panel-default">
@@ -82,7 +82,7 @@
 
                 <h3>Stats</h3><hr>
                 <canvas id="myChart" width="400" height="400"></canvas>
-
+                <div id="demo"></div>
             </div>
         </div>
     </div>

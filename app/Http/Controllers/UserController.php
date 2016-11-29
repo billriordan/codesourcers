@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\User;
 use App\Comment;
@@ -58,9 +60,23 @@ class UserController extends Controller
 
         $date = Carbon::createFromDate(2018,1,1);
         $date= $date->diffInMonths($user->created_at);
+
         return view('user.profile', compact('user', 'comments', 'threads', 'date'));
     }
 
+    /**
+     * Grabs User Comments
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getComments($id){
+        $result = Comment::where('user_id', $id)->get();
+        Log::debug('ID' . $id);
+        Log::debug('User obj' . $result);
+        return response($result);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -42,6 +42,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Route::get('/', 'ThreadsController@index');
 
 Route::resource('thread', 'ThreadsController');
+Route::get('thread/{id}/lock', 'ThreadsController@lock');
 
 Route::resource('comment', 'CommentsController');
 
@@ -54,4 +55,6 @@ Route::get('profile', function(){
 });
 
 Route::resource('user','UserController');
+
+Route::get('user/{id}/comments','UserController@getComments');
 

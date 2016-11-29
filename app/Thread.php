@@ -35,6 +35,10 @@ class Thread extends Model
 
     public function tags()
     {
+<<<<<<< HEAD
         return $this->belongsToMany('App\Tag')->withPivot('tag_id');
+=======
+        return $this->hasOne('App\Tag');
+>>>>>>> c74ed89ad537d158368b88ca49c1bb7b48e6fa02
     }
 }

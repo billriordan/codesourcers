@@ -112,6 +112,19 @@ class ThreadsController extends Controller
     	return redirect('thread/' . $id);
     }
 
+    public function lock($id)
+    {
+        $thread = Thread::find($id);
+        if(\Auth::user()->id = $thread->user->id || \Auth::user()->is_admin)
+        {
+            $thread->end_date = Carbon::now();
+            $thread->save();
+            return redirect('/thread');
+        }
+        else
+            return redirect()->back();
+    }
+
     public function destroy($id)
     {
     	$thread = Thread::find($id);
@@ -119,6 +132,7 @@ class ThreadsController extends Controller
 		return redirect()->back();
     }
 
+<<<<<<< HEAD
     public function lock($id)
     {
             $thread = Thread::find($id);
@@ -153,4 +167,6 @@ class ThreadsController extends Controller
 
         return view('thread.sort', compact('threads'))->withTags($tags);
     }
+=======
+>>>>>>> c74ed89ad537d158368b88ca49c1bb7b48e6fa02
 }

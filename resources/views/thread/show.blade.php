@@ -53,6 +53,18 @@
         </div>
 	<br>
 	
+	@if(Auth::user()->id == $thread->user->id || Auth::user()->is_admin)
+	<a href="{{url('/thread/' . $thread->id . '/lock')}}">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="panel panel-default" id="lock">
+				    <div class="panel-body" style="text-align: center">Lock Thread</div>
+				</div>
+			</div>
+		</div>
+	</a>
+	@endif
+	
 			<div class="row">
 				<div class="col-md-6 col-md-offset-1">
 				@foreach($thread->comments as $comment)

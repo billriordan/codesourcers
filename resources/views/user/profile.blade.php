@@ -31,6 +31,10 @@
                         <b>Age</b>
                     </div>
                     <b>{{$date}}</b> Months
+                    <div class="profile-usertitle-job">
+                        <b>Karma rating</b>
+                    </div>
+                    <b>{{$karma}}</b>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
             </div>
@@ -66,7 +70,7 @@
                 @foreach($threads as $thread)
                         <div class="row">
                             <div class="col-md-8">
-                                <li><a href="#" data-toggle="collapse" data-target="#thread{{$thread->id}}">{{$thread->created_at}}</a></li>
+                                <li><a href="#" data-toggle="collapse" data-target="#thread{{$thread->id}}">{{$thread->created_at->toDayDateTimeString()}}</a></li>
                                 <div id="thread{{$thread->id}}" class="collapse">
                                     <div class="thread_thumb">
                                         <div class="panel panel-default">
@@ -82,7 +86,7 @@
 
                 <h3>Stats</h3><hr>
                 <canvas id="myChart" width="400" height="400"></canvas>
-
+                <div id="demo"></div>
             </div>
         </div>
     </div>

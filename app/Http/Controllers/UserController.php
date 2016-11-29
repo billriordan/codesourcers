@@ -56,12 +56,36 @@ class UserController extends Controller
         $comments = Comment::where('user_id' , $id)->get();
         $threads = Thread::where('user_id', $id)->get();
 
+<<<<<<< HEAD
         $date = Carbon::createFromDate(2018,1,1);
         $date= $date->diffInMonths($user->created_at);
 
         return view('user.profile', compact('user', 'comments', 'threads', 'date'));
+=======
+        $date = Carbon::parse($user->created_at);
+        $date = $date->diffInMonths($user->created_at);
+
+        $karma = 0;
+        if($user->downvotes != 0)
+            $karma = ($user->upvotes)/($user->downvotes);
+
+        return view('user.profile', compact('user', 'comments', 'threads', 'date', 'karma'));
+>>>>>>> c74ed89ad537d158368b88ca49c1bb7b48e6fa02
     }
 
+    /**
+     * Grabs User Comments
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getComments($id){
+        $result = Comment::where('user_id', $id)->get();
+        Log::debug('ID' . $id);
+        Log::debug('User obj' . $result);
+        return response($result);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

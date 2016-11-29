@@ -34,7 +34,7 @@
 
             <!-- Modal content -->
             <div class="modal-content">
-                <span class="close">x</span>
+                <span class="close" id="close2">x</span>
                 Change Email <input> <button class="btn btn-danger">Submit</button>
             </div>
 
@@ -44,7 +44,16 @@
         Created Date: display <br>
 
         Photo: Display photo <br>
-        Upload button | Delete button <br>
+
+        <!-- The data encoding type, enctype, MUST be specified as below -->
+        <form enctype="multipart/form-data" action="__URL__" method="POST">
+            <!-- MAX_FILE_SIZE must precede the file input field (3MB) -->
+            <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+            <!-- Name of input element determines name in $_FILES array -->
+            <input name="userfile" type="file" />
+            <input type="submit" value="Send File" />
+        </form>
+
 
         Delete User: Yes No <br>
 

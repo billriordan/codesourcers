@@ -15,8 +15,6 @@
 Route::get('/', 'ThreadsController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
-//sorted threads
-Route::get('/sort.blade.php', 'ThreadsController@sort');
 
 //Registration routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm');
@@ -58,3 +56,5 @@ Route::resource('user','UserController');
 
 Route::get('user/{id}/comments','UserController@getComments');
 
+Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
+Route::get('thread/{id}/downvote', 'ThreadsController@downvote');

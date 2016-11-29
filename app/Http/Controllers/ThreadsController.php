@@ -14,17 +14,9 @@ class ThreadsController extends Controller
 {
     public function index()
     {
-<<<<<<< HEAD
-        $tags = Tag::all();
-    	//$threads = Thread::paginate(20);
-        $threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->get();
-    	//$threads = Thread::with('users')->paginate(20);
-    	return view('thread.frontpage', compact('threads'))->withTags($tags);
-=======
         $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '>=', Carbon::now())->simplePaginate(2);
         $tags = Tag::all();
     	return view('thread.frontpage', compact('threads', 'tags'));
->>>>>>> 6d776c6f0ebe7c75765f063fd76dc57b4eb4d818
     }
 
     public function show($id)
@@ -44,6 +36,7 @@ class ThreadsController extends Controller
     public function create()
     {
         $tags = Tag::all();
+
         if(\Auth::check())
         {
             return view('thread.create')->withTags($tags);
@@ -121,41 +114,15 @@ class ThreadsController extends Controller
 		return redirect()->back();
     }
 
-<<<<<<< HEAD
-    public function lock($id)
-    {
-            $thread = Thread::find($id);
-            $thread->end_date=Carbon::now();
-            $thread->save();
-        
-        return redirect()->back();
-    }
+    public function upvote($id) {
+    	$thread = Thread::find($id);
+		$thread->upvote += 1;
+		$thread->save();
+	}
 
-    public function sort(Request $request)
-    {
-
-        $tags = Tag::all();
-        
-        dd($request);
-
-        /*$threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->with(
-                    [
-                        'tags' => function($query)
-                        {
-                            $query->where('tag_id' , 1);
-                        }
-                    ])->get();*/
-
-      // $threads = Thread::join('tag_thread', 'tag_thread.thread_id', '=', 'threads.id')->where('tag_thread.tag_id', '=', 1)->get();
-
-        $threads = Thread::whereHas('tags', function($q)
-            {
-                $q->whereIn('tags.id', array(1));
-            })->get();
-        
-
-        return view('thread.sort', compact('threads'))->withTags($tags);
-    }
-=======
->>>>>>> c74ed89ad537d158368b88ca49c1bb7b48e6fa02
+    public function downvote($id) {
+    	$thread = Thread::find($id);
+		$thread->downvote += 1;
+		$thread->save();
+	}
 }

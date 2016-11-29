@@ -55,7 +55,7 @@
         </form>
 
 
-        Delete User: Yes No <br>
+        <button class="btn btn-danger">Delete User</button>
 
 
     </div>

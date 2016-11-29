@@ -89,15 +89,8 @@ class UserController extends Controller
         //first get all threads
         $threads = Thread::where('user_id', $id)->get();
         Log::debug('THREADS' . $threads);
-        //then for each thread, get all tags matched by all thread id's
 
-        $tags = Thread::whereHas('tags', function($q){
-            $q->whereIn('tags.id', array(1));})->get();
-
-        //return that collection
-        Log::debug('Tags' . $tags);
-
-        return response($tags);
+        return response($threads);
     }
 
 

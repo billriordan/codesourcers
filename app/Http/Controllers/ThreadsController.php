@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Thread;
 use App\User;
 use App\Comment;
+use App\Tag;
 use Carbon\Carbon;
 use App\Http\Requests;
 
@@ -13,7 +14,8 @@ class ThreadsController extends Controller
 {
     public function index()
     {
-    	$threads = Thread::paginate(20);
+    	//$threads = Thread::paginate(20);
+        $threads = Thread::where('end_date', '=', null)->orWhere('end_date', '>', Carbon::now())->get();
     	//$threads = Thread::with('users')->paginate(20);
     	return view('thread.frontpage', compact('threads'));
     }
@@ -40,20 +42,22 @@ class ThreadsController extends Controller
         $thread = $thread[0];
         //dd($thread);
         //dd($thread->comments[0]->user->name);
-
     	return view('thread.show', compact('thread'));
     }
 
     public function create()
     {
+        $tags = Tag::all();
+
         if(\Auth::check())
         {
-            return view('thread.create');
+            
+            return view('thread.create')->withTags($tags);
         }
         else return redirect()->back();
     }
 
-    public function store()
+    public function store(Request $request)
     {
     	$thread = new Thread();
 
@@ -68,16 +72,27 @@ class ThreadsController extends Controller
 			$thread->end_date = Input::get('end_date');
 
 		$thread->save();
+
+       //links tags to thread
+       $thread->tags()->sync($request->tags,false);
+    
+
     	return redirect('/');
     }
 
     public function edit($id)
     {
     	$thread = Thread::find($id);
-    	return view('thread.edit', compact('thread'));
+        $tags = Tag::all();
+        $tags2 = array();
+        foreach ($tags as $tag) {
+            $tags2[$tag->id] = $tag->name;
+        }
+
+    	return view('thread.edit', compact('thread'))->withTags($tags2);
     }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
     	$thread = Thread::find($id);
     	$thread->name = Input::get('name');
@@ -90,6 +105,10 @@ class ThreadsController extends Controller
 			$thread->end_date = Input::get('end_date');
 
         $thread->save();
+
+        //updates tag thread links
+        $thread->tags()->sync($request->tags,true);
+
     	return redirect('thread/' . $id);
     }
 
@@ -111,5 +130,15 @@ class ThreadsController extends Controller
     	$thread = Thread::find($id);
 		$thread->delete();
 		return redirect()->back();
+    }
+
+    public function lock($id)
+    {
+        
+            $thread = Thread::find($id);
+            $thread->end_date=Carbon::now();
+            $thread->save();
+        
+        return redirect()->back();
     }
 }

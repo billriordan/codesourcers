@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Edit Thread</div>
+				<div class="panel-heading">Create Thread</div>
 				<div class="panel-body">
 				@if (count($errors) > 0)
 						<div class="alert alert-danger">
@@ -24,6 +24,15 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Thread Name</label>
 							{{ Form::text('name') }}
+						</div>
+						
+						<div class="form-group"> 
+							<label class="col-md-4 control-label">Tags</label>
+							<select name="tags[]" multiple="multiple">
+								@foreach($tags as $tag)
+									<option value='{{ $tag->id }}'>{{ $tag->name }}</option>
+								@endforeach
+							</select>
 						</div>
 
 						<div class="form-group">
@@ -54,6 +63,7 @@
 					</form>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>

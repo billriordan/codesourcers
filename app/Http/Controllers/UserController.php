@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use Carbon\Carbon;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\User;
 use App\Comment;
@@ -61,7 +59,7 @@ class UserController extends Controller
         $date = Carbon::parse($user->created_at);
         $date = $date->diffInMonths($user->created_at);
 
-        $karma = 0.0;
+        $karma = 0;
         if($user->downvotes != 0)
             $karma = ($user->upvotes)/($user->downvotes);
 

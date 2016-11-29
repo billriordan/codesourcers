@@ -19,6 +19,9 @@ class CreateThreadsTable extends Migration
             $table->longText('description');
             $table->longText('code_block');
             $table->integer('user_id');
+            $table->integer('tag_id');
+            $table->integer('downvotes')->default(0);
+            $table->integer('upvotes')->default(0);
             $table->timestamp('start_date')->nullable(); // default will display now
             $table->timestamp('end_date')->nullable(); // the thread will never end
             $table->timestamps();

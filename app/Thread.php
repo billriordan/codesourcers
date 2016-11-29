@@ -35,6 +35,6 @@ class Thread extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('App\Tag');
+        return $this->hasOne('App\Tag');
     }
 }

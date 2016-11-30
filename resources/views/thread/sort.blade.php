@@ -7,9 +7,9 @@
         <div class="create_thread">Create Thread</div>
     </a>
 @endif
-<div class="col-md-1" style="float:right">
-    <form class="form-horizontal" role="form" method="GET" action="sort.blade.php">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">          
+<div style="float:right">
+    <form role="form" method="GET" action="sort.blade.php">
+        <input type="hidden">           
         <div class="form-group"> 
             <select name="tags[]">
                 @foreach($tags as $tag)
@@ -18,7 +18,7 @@
             </select>
         </div>
         <div class="form-group" >
-            <div class="col-md-6 col-md-offset-4">
+            <div>
                 <button type="submit" class="btn btn-primary">Sort</button>
             </div>
         </div>

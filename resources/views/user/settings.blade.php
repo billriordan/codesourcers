@@ -10,9 +10,10 @@
 
     <div class="contentBox">
 
+        <h3>Settings Page</h3> <hr>
         Username: <b>{{$user->name}}</b>
     <!-- Trigger/Open The Modal -->
-        <button id="myBtn">Change username</button>
+        <button id="myBtn" class="btn btn-success">Change username</button>
 
         <!-- The Modal -->
         <div id="usernameModal" class="modal">
@@ -20,14 +21,24 @@
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">x</span>
-                New Username: <input> <button class="btn btn-danger">Submit</button>
+
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('user.store') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <label class="col-md-4 control-label">Username</label>
+                        {{ Form::text('username') }}
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                </form>
+
             </div>
 
         </div>  <br>
 
 
         Email: <b>{{$user->email}}</b>     <!-- Trigger/Open The Modal -->
-        <button id="myBtn2">Change email</button>
+        <button id="myBtn2" class="btn btn-success">Change email</button>
 
         <!-- The Modal -->
         <div id="emailModal" class="modal">
@@ -35,7 +46,20 @@
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close" id="close2">x</span>
-                Change Email <input> <button class="btn btn-danger">Submit</button>
+
+
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('user.store') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <label class="col-md-4 control-label">Email</label>
+                    {{ Form::text('email') }}
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                </form>
+
+
+
             </div>
 
         </div>  <br>
@@ -56,6 +80,7 @@
 
 
         <button class="btn btn-danger">Delete User</button>
+
 
 
     </div>

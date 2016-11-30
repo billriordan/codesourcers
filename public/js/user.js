@@ -167,6 +167,5 @@ function processTags(data){
             processedData[2]++;
         }
     }
-
     return processedData;
 }

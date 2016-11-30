@@ -125,4 +125,15 @@ class ThreadsController extends Controller
 		$thread->downvote += 1;
 		$thread->save();
 	}
+
+    public function sort(Request $request){
+        $tags = Tag::all();
+        
+        //dd($request);
+
+        $threads = Thread::where('tag_id', '=', $request->tags)->simplePaginate(2);
+        $tags = Tag::all();
+        
+        return view('thread.sort', compact('threads', 'tags'));
+    }
 }

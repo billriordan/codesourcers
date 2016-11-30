@@ -58,3 +58,5 @@ Route::get('user/{id}/comments','UserController@getComments');
 
 Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
 Route::get('thread/{id}/downvote', 'ThreadsController@downvote');
+
+Route::get('/sort.blade.php', 'ThreadsController@sort');

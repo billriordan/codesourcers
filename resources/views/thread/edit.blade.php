@@ -28,7 +28,7 @@
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Tags</label>
-							{{ Form::select('tags[]', $tags, null, ['multiple'=> 'multiple']) }}
+							{{ Form::select('tags[]', $tags, null, []) }}
 						</div>
 
 						<div class="form-group">

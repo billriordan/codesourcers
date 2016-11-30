@@ -57,12 +57,12 @@
 
                         <div class="form-group" id="start_time" style="display: none">
 							<label class="col-md-4 control-label">Start Time</label>
-							<input type="datetime-local" name="start_time">
+							<input type="datetime-local" name="start_date">
 						</div>
 
 						<div class="form-group" id="end_time" style="display: none">
 							<label class="col-md-4 control-label">End Time</label>
-							<input type="datetime-local" name="end_time">
+							<input type="datetime-local" name="end_date">
 						</div>
 
 						<div class="form-group">

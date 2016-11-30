@@ -45,11 +45,21 @@
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="times"> Set Times
+                                        <input type="checkbox" name="times" onclick="toggle()"> Set Times
                                     </label>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group" id="start_time" style="display: none">
+							<label class="col-md-4 control-label">Start Time</label>
+							<input type="datetime-local" name="start_date">
+						</div>
+
+						<div class="form-group" id="end_time" style="display: none">
+							<label class="col-md-4 control-label">End Time</label>
+							<input type="datetime-local" name="end_date">
+						</div>
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
@@ -62,5 +72,18 @@
 		</div>
 	</div>
 </div>
-
+<script>
+function toggle() {
+	if(document.getElementById('start_time').style.display == "inline")
+	{
+		document.getElementById("start_time").style.display = "none";
+		document.getElementById("end_time").style.display = "none";
+	}
+	else
+	{
+		document.getElementById("start_time").style.display = "inline";
+		document.getElementById("end_time").style.display = "inline";
+	}
+}
+</script>
 @endsection

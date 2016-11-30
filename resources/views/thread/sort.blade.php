@@ -13,7 +13,7 @@
         <div class="form-group"> 
             <select name="tags[]">
                 @foreach($tags as $tag)
-                    <option value='{{ $tag->id }}'>{{ $tag->name }}</option>
+                    <option value='{{ $tag->id }}' @if($tag->id == $current_tag)selected="selected"@endif>{{ $tag->name }}</option>
                 @endforeach
             </select>
         </div>

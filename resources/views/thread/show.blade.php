@@ -193,8 +193,7 @@
 	</div>
 @endif
 
-<<<<<<< HEAD
-=======
+
 @if(Auth::user())
 	@if(Auth::user()->id == $thread->user_id)
 		<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
@@ -205,7 +204,7 @@
 @endsection
 
 @section('scripts');
->>>>>>> 7f6d37f12df69a9cd2845c742fa76cc536946148
+
 <script>
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";

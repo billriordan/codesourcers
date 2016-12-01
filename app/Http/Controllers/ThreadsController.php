@@ -150,7 +150,14 @@ class ThreadsController extends Controller
         
         //dd($request);
         $current_tag = $request->tags[0];
-        $threads = Thread::where('tag_id', '=', $request->tags)->simplePaginate(20);
+        $current_order = $request->tags[1];
+
+        if($current_order === 'desc') {
+            $threads = Thread::where('tag_id', '=', $request->tags)->orderBy('upvotes', 'desc')->simplePaginate(20);
+        }
+        else {
+            $threads = Thread::where('tag_id', '=', $request->tags)->orderBy('upvotes', 'asc')->simplePaginate(20);
+        }
         $tags = Tag::all();
         
         return view('thread.sort', compact('threads', 'tags', 'current_tag'));

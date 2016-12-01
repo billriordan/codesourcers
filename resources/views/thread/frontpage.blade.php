@@ -16,6 +16,12 @@
 				@endforeach
 			</select>
 		</div>
+		<div class="form-group"> 
+			<select name="tags[]">
+					<option value="desc">Most Popular</option>
+					<option value="asc">Least Popular</option>
+			</select>
+		</div>
 		<div class="form-group" >
 			<div>
 				<button type="submit" class="btn btn-primary">Sort</button>

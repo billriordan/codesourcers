@@ -97,8 +97,8 @@ class CommentsController extends Controller
         $comment->save();
         $user->save();
         if($user->rating($comment->upvotes, $comment->downvotes) == "fa fa-battery-0")
-            $comment->destroy();
-        
+            $comment->delete();
+
         return redirect()->back();
     }
 }

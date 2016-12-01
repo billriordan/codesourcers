@@ -8,7 +8,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 col-md-offset-2">
+		<div class="col-md-10 col-md-offset-2">
 	
 			<div class="row">
 				<div class="col-md-8">
@@ -16,7 +16,7 @@
 						<div class="panel panel-default">
 					        <div class="panel-heading">
 					        <div class="votes" style="display: inline; float: right;">
-								<button href="#" id="upvote">upvote</button> <button href="#" id="downvote">downvote</button>
+								<button href="#" class="btn btn-info" id="upvote">upvote</button> <button href="#" class="btn btn-default"  id="downvote">downvote</button>
 							</div>
 							<div class="thread-name" style="display: inline;">
 								{{$thread->name}}

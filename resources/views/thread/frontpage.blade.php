@@ -4,7 +4,7 @@
 
 @if(Auth::user())
 	<button type="button" class="btn btn-primary" id="createThread" onclick="createThread()">
-		Create Thread</button>-
+		Create Thread</button>
 @endif
 <div style="float:right">
 	<form role="form" method="GET" action="sort.blade.php">
@@ -24,7 +24,7 @@
 	</form>
 </div>
 <div class="row">
-	<div class="col-md-12 col-md-offset-2">
+	<div class="col-md-10 col-md-offset-2">
 		@foreach($threads as $thread)
 		<div class="row">
 			<div class="col-md-8">

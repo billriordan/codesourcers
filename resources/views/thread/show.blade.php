@@ -35,7 +35,7 @@
 									@else
 										<div class="start_date">{{$thread->created_at->toDayDateTimeString()}}</div>
 									@endif
-									@if($thread->start_date)
+									@if($thread->end_date)
 										<div class="end_date">Comments Disabled After: {{$thread->end_date->toDayDateTimeString()}}</div>
 									@endif
 								</div>

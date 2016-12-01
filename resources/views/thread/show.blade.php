@@ -11,6 +11,9 @@
 						<div class="panel panel-default">
 					        <div class="panel-heading">
 					        {{$thread->name}}
+					        @if(Auth::check() && Auth::user()->id == $thread->user_id)
+					        <a href="{{url('/thread/' . $thread->id . '/edit')}}"><i class="fa fa-pencil-square-o"></i></a>
+					        @endif
 					        <div class="upvotes" style="display: inline; float:right">[up] [down]</div></div>
 
 					        <div class="panel-body"> {{ $thread->description }}</div>
@@ -52,7 +55,7 @@
 		@endif
 	<br>
 	
-	@if(Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->is_admin))
+	@if( ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)) && Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->is_admin))
 	<a href="{{url('/thread/' . $thread->id . '/lock')}}">
 		<div class="row">
 			<div class="col-md-8">
@@ -180,13 +183,6 @@
 	</div>
 @endif
 
-@if(Auth::user())
-	@if(Auth::user()->id == $thread->user_id)
-		<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
-			<div class="edit_thread">Edit Thread</div>
-		</a>
-	@endif
-@endif
 <script>
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";

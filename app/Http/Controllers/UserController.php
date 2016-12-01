@@ -247,6 +247,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
+        //First delete all comments
+        $comments = Comment::where('user_id', $id)->get();
+        foreach($comments as $comment)
+            $comment->delete();
+
+        //Second delete all Threads
+        $threads = Thread::where('user_id', $id)->get();
+
+        foreach($threads as $thread)
+            $thread->delete();
+
+        //Lastly, delete User
         $user = User::find($id);
         $user->delete();
         flash('User deleted' , 'danger');

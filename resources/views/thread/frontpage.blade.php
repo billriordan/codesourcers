@@ -7,7 +7,7 @@
 		Create Thread</button>
 @endif
 <div style="float:right">
-	<form role="form" method="GET" action="/">
+	<form role="form" method="GET" action="frontpage.blade.php">
 		<input type="hidden">			
 		<div class="form-group"> 
 			<select name="tags[]">

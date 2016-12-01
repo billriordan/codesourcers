@@ -7,8 +7,7 @@ var modal2 = document.getElementById('emailModal');
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 var btn2 = document.getElementById("myBtn2");
-var emailBtn = document.getElementById("submitEmail");
-var usernameBtn = document.getElementById("submitUsername");
+
 
 
 
@@ -44,15 +43,4 @@ window.onclick = function(event) {
     if(event.target == modal2){
         modal2.style.display = "none";
     }
-}
-
-emailBtn.onclick = function() {
-
-
-}
-
-usernameBtn.onclick = function(){
-    var textBox = document.getElementById("username");
-    console.log(textBox);
-
 }

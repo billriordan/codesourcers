@@ -11,6 +11,8 @@ use App\Comment;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\In;
+use Validator;
+
 
 class UserController extends Controller
 {
@@ -90,7 +92,6 @@ class UserController extends Controller
     public function getTags($id){
         //first get all threads
         $threads = Thread::where('user_id', $id)->get();
-        Log::debug('THREADS' . $threads);
 
         return response($threads);
     }
@@ -119,6 +120,15 @@ class UserController extends Controller
     {
 
     }
+
+
+    /**
+     * Update the Username
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function updateUser($id)
     {
         $user = User::find($id);
@@ -130,6 +140,13 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Update the User email
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function updateEmail($id)
     {
         $user = User::find($id);
@@ -139,6 +156,60 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+
+    /**
+     * Uploads a file for the user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadImage($id){
+        Log::debug('flag');
+
+
+        // getting all of the post data
+        $file = array('image' => Input::file('image'));
+        // setting up rules
+        $rules = array('image' => 'required'); //mimes:jpeg,bmp,png and for max size max:10000
+        // doing the validation, passing post data, rules and the messages
+        $validator = Validator::make($file, $rules);
+
+        Log::debug('flag2');
+        if ($validator->fails()) {
+            // send back to the page with the input data and errors
+            flash('Uploaded file not valid', 'error');
+            return redirect()->back();
+        }
+        else {
+            // checking file is valid.
+            if (Input::file('image')->isValid()) {
+                $destinationPath = 'uploads'; // upload path
+                $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+                $fileName = rand(11111,99999).'.'.$extension; // renameing image
+                Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+                // sending back with message
+
+                //save filename to user
+
+                $user = User::find($id);
+                $user->photo_id = $fileName;
+                $user->save();
+
+                flash('File uploaded', 'success');
+                return redirect()->back();
+            }
+            else {
+                // sending back with error message.
+                flash('Uploaded file not valid', 'error');
+                return redirect()->back();
+            }
+        }
+
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *

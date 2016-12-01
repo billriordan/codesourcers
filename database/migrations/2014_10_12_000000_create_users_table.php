@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->boolean('confirmed')->default(0);
             $table->string('confirmation_code')->nullable();
+            $table->string('photo_id')->default('defaultProfile.png');
         });
     }
 

@@ -49,7 +49,7 @@
                 {{ Form::text('email') }}
 
                 {{Form::submit('Change Email')}}
-
+                {{Form::close()}}
 
             </div>
 
@@ -60,27 +60,18 @@
 
         Photo: Display photo <br>
 
-        {{--<!-- The data encoding type, enctype, MUST be specified as below -->--}}
-        {{--<form enctype="multipart/form-data" action="__URL__" method="POST">--}}
-            {{--<!-- MAX_FILE_SIZE must precede the file input field (3MB) -->--}}
-            {{--<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />--}}
-            {{--<!-- Name of input element determines name in $_FILES array -->--}}
-            {{--<input name="userfile" type="file" />--}}
-            {{--<input type="submit" value="Send File" />--}}
-        {{--</form>--}}
-
-        {!! Form::open(array('url'=>'apply/upload','method'=>'POST', 'files'=>true)) !!}
+        {{ Form::open(array('route' => array('user.uploadImage',$user->id),'method'=>'post', 'files'=>true)) }}
         <div class="control-group">
             <div class="controls">
-                {!! Form::file('image') !!}
+                {{ Form::file('image') }}
                 {!!$errors->first('image')!!}
                 @if(Session::has('error'))
                     <p class="errors">{!! Session::get('error') !!}</p>
                 @endif
-                {!! Form::submit('Submit', array('class'=>'send-btn')) !!}
-                {!! Form::close() !!}
+                {{ Form::submit('Submit file') }}
+                {{ Form::close() }}
                 </div>
-
+        </div>
         <button class="btn btn-danger">Delete User</button>
 
 

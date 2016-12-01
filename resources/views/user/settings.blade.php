@@ -75,9 +75,9 @@
 
 
         </div>
-        <button class="btn btn-danger">Delete User</button>
-
-
+        {{ Form::open(['url' => 'user/' . $user->id , 'method' => 'delete']) }}
+        {{ Form::submit('Delete User', ['class' => 'btn btn-danger']) }}
+        {{ Form::close() }}
 
     </div>
 

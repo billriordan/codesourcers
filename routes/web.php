@@ -56,7 +56,14 @@ Route::get('profile', function() {
 Route::resource('user','UserController');
 
 Route::get('user/{id}/comments','UserController@getComments');
+Route::get('user/{id}/tags','UserController@getTags');
 
+Route::post('user/{id}/updateUser', ['uses' =>'UserController@updateUser', 'as' => 'user.updateUser']);
+Route::post('user/{id}/updateEmail', ['uses' =>'UserController@updateEmail', 'as' => 'user.updateEmail']);
+Route::post('user/{id}/upload', ['uses' =>'UserController@uploadImage', 'as' => 'user.uploadImage']);
+
+
+Route::get('user/{id}/settings', 'SettingsController@show');
 Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
 Route::get('thread/{id}/downvote', 'ThreadsController@downvote');
 

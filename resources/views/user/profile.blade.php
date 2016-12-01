@@ -14,7 +14,7 @@
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="/defaultProfile.png" class="img-responsive" alt="">
+                    <img src="{{asset('uploads/' . $user->photo_id)}}" class="img-responsive" alt="">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
@@ -85,8 +85,11 @@
 
 
                 <h3>Stats</h3><hr>
-                <canvas id="myChart" width="400" height="400"></canvas>
-                <div id="demo"></div>
+                <canvas id="myChart" width="50" height="50"></canvas>
+
+                <h3>Tags</h3><hr>
+                <canvas id="tagChart" width="50" height="50"></canvas>
+
             </div>
         </div>
     </div>

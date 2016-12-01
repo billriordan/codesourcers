@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\TagThread;
 use App\Thread;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use App\Comment;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\In;
+use Validator;
+use Image;
 
 class UserController extends Controller
 {
@@ -63,6 +68,7 @@ class UserController extends Controller
         if($user->downvotes != 0)
             $karma = ($user->upvotes)/($user->downvotes);
 
+
         return view('user.profile', compact('user', 'comments', 'threads', 'date', 'karma'));
     }
 
@@ -74,11 +80,25 @@ class UserController extends Controller
      */
     public function getComments($id){
         $result = Comment::where('user_id', $id)->get();
-        Log::debug('ID' . $id);
-        Log::debug('User obj' . $result);
         return response($result);
 
     }
+
+    /**
+     * Grabs User Tags
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getTags($id){
+        //first get all threads
+        $threads = Thread::where('user_id', $id)->get();
+
+        return response($threads);
+    }
+
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -99,8 +119,109 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
+
+
+    /**
+     * Update the Username
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUser($id)
+    {
+        $user = User::find($id);
+
+        $user->name = Input::get('username');
+        $user->save();
+
+        return redirect()->back();
+
+    }
+
+    /**
+     * Update the User email
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEmail($id)
+    {
+        $user = User::find($id);
+
+        $user->email = Input::get('email');
+        $user->save();
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * Uploads a file for the user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadImage($id){
+
+        // getting all of the post data
+        $file = array('image' => Input::file('image'));
+        // setting up rules
+        $rules = array('image' => 'required'); //mimes:jpeg,bmp,png and for max size max:10000
+        // doing the validation, passing post data, rules and the messages
+        $validator = Validator::make($file, $rules);
+        //grab user
+        $user = User::find($id);
+
+
+        Log::debug('flag2');
+        if ($validator->fails()) {
+            // send back to the page with the input data and errors
+            flash('Uploaded file not valid', 'error');
+            return redirect()->back();
+        }
+        else {
+            // checking file is valid.
+
+
+            if (Input::file('image')->isValid()) {
+
+
+                $destinationPath = 'uploads'; // upload path
+                $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+
+                if($user->photo_id == "defaultProfile.png")
+                    $fileName = rand(11111,99999).'.'.$extension; // renameing image
+                else
+                    $fileName = $user->photo_id; //reuse same photo_id
+
+
+                Image::make(Input::file('image'))->resize(200,200)->save($destinationPath.'/'.$fileName);
+                //Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+                // sending back with message
+
+                //save filename to user
+
+                $user = User::find($id);
+                $user->photo_id = $fileName;
+                $user->save();
+
+                flash('File uploaded', 'success');
+                return redirect()->back();
+            }
+            else {
+                // sending back with error message.
+                flash('Uploaded file not valid', 'error');
+                return redirect()->back();
+            }
+        }
+
+    }
+
 
     /**
      * Remove the specified resource from storage.

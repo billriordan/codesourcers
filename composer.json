@@ -10,7 +10,8 @@
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "laracasts/flash": "^2.0",
         "laravelcollective/html": "^5.2.0",
-        "hieu-le/active": "^3.3"
+        "hieu-le/active": "^3.3",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

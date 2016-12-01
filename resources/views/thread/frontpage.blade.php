@@ -3,9 +3,8 @@
 @section('content')
 
 @if(Auth::user())
-	<a href="{{url('/thread/create')}}">
-		<div class="create_thread">Create Thread</div>
-	</a>
+	<button type="button" class="btn btn-primary" id="createThread" onclick="createThread()">
+		Create Thread</button>-
 @endif
 <div style="float:right">
 	<form role="form" method="GET" action="sort.blade.php">
@@ -48,9 +47,17 @@
 		@endforeach
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-md-12" style="text-align: center">
 		{{$threads->links()}}
 	</div>
 </div>
+
 @endsection
+
+<script>
+	function createThread(){
+		window.location="{{URL::to('/thread/create')}}";
+	}
+</script>

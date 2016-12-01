@@ -11,7 +11,7 @@ class Thread extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'code_block', 'start_date', 'end_date'
+        'name', 'description', 'code_block', 'start_date', 'end_date', 'id'
     ];
 
     /**
@@ -20,7 +20,7 @@ class Thread extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'user_id',
+        'user_id',
     ];
 
     public function user()

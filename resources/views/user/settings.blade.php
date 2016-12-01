@@ -59,6 +59,7 @@
         Created Date: display <br>
 
         Photo: <img src=" {{asset('uploads/' . $user->photo_id)}}">
+        <button class="btn btn-danger" onclick="window.location='{{url("user/" . $user->id . "/deletePhoto" )}}' ">Delete Photo</button>
 
         {{ Form::open(array('route' => array('user.uploadImage',$user->id),'method'=>'post', 'files'=>true)) }}
         <div class="control-group">
@@ -71,6 +72,8 @@
                 {{ Form::submit('Submit file') }}
                 {{ Form::close() }}
                 </div>
+
+
         </div>
         <button class="btn btn-danger">Delete User</button>
 

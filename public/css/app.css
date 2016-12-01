@@ -120,3 +120,14 @@ a.closebtn:hover {
 #lock:hover {
 	background-color: #555;
 }
+
+.btn-danger {
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d9534f;
+}
+.btn-danger:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+	color: #fff;
+	background-color: #db44a3;
+	border-color: #8e098b; /*set the color you want here*/
+}

@@ -157,6 +157,22 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+    /**
+     * Delete the User photo
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteImage($id)
+    {
+        $user = User::find($id);
+
+        $user->photo_id = 'defaultProfile.png';
+        $user->save();
+
+        return redirect()->back();
+    }
 
 
     /**

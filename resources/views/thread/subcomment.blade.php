@@ -9,6 +9,7 @@
 	@endif
 			<div class="panel-heading">
 			<a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a>
+			<i class="{{$comment->user->rating($comment->user->upvotes, $comment->user->downvotes)}}"></i>
 			@if(Auth::check() && (Auth::user()->id == $comment->user->id))
 			<div class="delete_button" style="float:right">
 				{{ Form::open(['url' => 'comment/' . $comment->id , 'method' => 'delete']) }}
@@ -19,11 +20,6 @@
 			</div>
 			<div class="panel-body">{{ $comment->description }}</div>
 				<div class="panel-footer">
-					<div class="stars">
-					@foreach($comment->stars($comment->upvotes, $comment->downvotes) as $star)
-					<i class="{{$star}}"></i>
-					@endforeach
-					</div>
 					<div class="user_name">{{$comment->created_at->toDayDateTimeString()}}</div>
 				</div>
 				@if(Auth::check() && ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)))

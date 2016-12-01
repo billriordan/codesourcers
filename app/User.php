@@ -37,98 +37,23 @@ class User extends Authenticatable
         return $this->hasMany('App\Thread');
     }
 
-    public function stars($upvotes, $downvotes)
+    public function rating($upvotes, $downvotes)
     {
-        
-        //value from 0 to 
+        //return "fa fa-star-o";
         if($upvotes == 0)
-                $upvotes = 3;
+            $upvotes++;
         if($downvotes == 0)
-                $downvotes = 1;
-
-            $percent = $upvotes / $downvotes;
-        switch($percent)
-        {
-            case ($percent <= 0): 
-                            return [
-                            1 => "fa fa-star-o",
-                                    ];
-                break;
-            case ($percent < .0625):
-                            return [
-                            1 => "fa fa-star-half-empty",
-                                    ];
-                break;
-            case ($percent < .125):
-                            return [
-                            1 => "fa fa-star",
-                                    ];
-                break;
-            case ($percent < 0.25):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star-half-empty",
-                                    ];
-                break;
-            case ($percent < 0.5):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                                    ];
-                break;
-            case ($percent <= 1.5):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star-half-empty",
-                                    ]; 
-            case ($percent < 2):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star",
-                                    ];
-                break;
-            case ($percent < 4):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star",
-                            4 => "fa fa-star-half-empty",
-                                    ];
-                break;
-            case ($percent < 8):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star",
-                            4 => "fa fa-star",
-                                    ];
-                break;
-            case ($percent < 16):
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star",
-                            4 => "fa fa-star",
-                            5 => "fa fa-star-half-empty",
-                                    ];
-                break;
-            case ($percent > 32): 
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star",
-                            4 => "fa fa-star",
-                            5 => "fa fa-star",
-                                    ];
-
-            default: 
-                            return [
-                            1 => "fa fa-star",
-                            2 => "fa fa-star",
-                            3 => "fa fa-star-half-empty",
-                                    ];
-        }
+            $downvotes++;
+        $percent = $upvotes /($upvotes + $downvotes);
+        if($percent <= 0.2)
+            return "fa fa-battery-0";
+        if($percent <= 0.4)
+            return "fa fa-battery-1";
+        if($percent <= 0.6)
+            return "fa fa-battery-2";
+        if($percent <= 0.8)
+            return "fa fa-battery-3";
+        else
+            return "fa fa-battery-4";
     }
 }

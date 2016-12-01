@@ -31,7 +31,10 @@
 			<div class="col-md-8">
 				<div class="thread_thumb" id="thread_{{ $thread->id }}">
 					<div class="panel panel-default">
-		                <div class="panel-heading"><a href="{{url('/thread', $thread->id)}}">{{$thread->name}}</a></div>
+		                <div class="panel-heading">
+		                <a href="{{url('/thread', $thread->id)}}">{{$thread->name}}</a>
+		                <i class="{{$thread->rating($thread->upvotes, $thread->downvotes)}}"></i>
+		                </div>
 	
 		                <div class="panel-body"> {{ $thread->description }}</div>
 

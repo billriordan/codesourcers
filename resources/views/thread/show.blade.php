@@ -62,7 +62,6 @@
 				</div>
 			</div>
 		@endif
-	<br>
 	
 	@if( ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)) && Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->is_admin))
 	<a href="{{url('/thread/' . $thread->id . '/lock')}}">
@@ -192,19 +191,9 @@
 	</div>
 @endif
 
-<<<<<<< HEAD
-=======
-@if(Auth::user())
-	@if(Auth::user()->id == $thread->user_id)
-		<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
-			<div class="edit_thread">Edit Thread</div>
-		</a>
-	@endif
-@endif
 @endsection
 
 @section('scripts');
->>>>>>> 7f6d37f12df69a9cd2845c742fa76cc536946148
 <script>
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";

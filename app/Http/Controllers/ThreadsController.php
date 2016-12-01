@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\User;
@@ -123,15 +124,25 @@ class ThreadsController extends Controller
     }
 
     public function upvote($id) {
+
     	$thread = Thread::find($id);
-		$thread->upvote += 1;
+		$user = User::find($thread->user_id);
+		$user->upvotes += 1;
+		$thread->upvotes += 1;
 		$thread->save();
+		$user->save();
+
+		return redirect()->back();
 	}
 
     public function downvote($id) {
     	$thread = Thread::find($id);
-		$thread->downvote += 1;
+		$user = User::find($thread->user_id);
+		$user->downvotes += 1;
+		$thread->downvotes += 1;
 		$thread->save();
+		$user->save();
+		return redirect()->back();
 	}
 
     public function sort(Request $request){

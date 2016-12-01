@@ -1,6 +1,11 @@
 @extends('main')
 
 @section('content')
+
+<div class="title m-b-md">
+    <h1>View Thread<h1>
+</div>
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 col-md-offset-2">
@@ -10,11 +15,16 @@
 					<div class="thread_body" id="thread_{{ $thread->id }}">
 						<div class="panel panel-default">
 					        <div class="panel-heading">
-					        {{$thread->name}}
-					        @if(Auth::check() && Auth::user()->id == $thread->user_id)
-					        <a href="{{url('/thread/' . $thread->id . '/edit')}}"><i class="fa fa-pencil-square-o"></i></a>
-					        @endif
-					        <div class="upvotes" style="display: inline; float:right">[up] [down]</div></div>
+					        <div class="votes" style="display: inline; float: right;">
+								<button href="#" id="upvote">upvote</button> <button href="#" id="downvote">downvote</button>
+							</div>
+							<div class="thread-name" style="display: inline;">
+								{{$thread->name}}
+								@if(Auth::check() && Auth::user()->id == $thread->user_id)
+					        		<a href="{{url('/thread/' . $thread->id . '/edit')}}"><i class="fa fa-pencil-square-o"></i></a>
+					        	@endif
+							</div>
+							</div>
 
 					        <div class="panel-body"> {{ $thread->description }}</div>
 					        <div class="panel-tags">
@@ -183,6 +193,19 @@
 	</div>
 @endif
 
+<<<<<<< HEAD
+=======
+@if(Auth::user())
+	@if(Auth::user()->id == $thread->user_id)
+		<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
+			<div class="edit_thread">Edit Thread</div>
+		</a>
+	@endif
+@endif
+@endsection
+
+@section('scripts');
+>>>>>>> 7f6d37f12df69a9cd2845c742fa76cc536946148
 <script>
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";
@@ -193,6 +216,45 @@ function openNav($thread_id, $comment_id) {
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
+
+ $('#upvote').click(function(event) {
+	 $('#upvote').attr('disabled', true);
+	 $('#downvote').attr('disabled', true);
+
+	 var url = document.URL;
+
+	 if (url.substr(url.length-1) === "#")
+		 url = url.substr(0, url.length-1);
+
+	 $.ajax({
+		 url: url + "/upvote",
+		 method: "GET",
+		 dataType: "json",
+		 success: function (data) {
+			 $('#upvote').attr('disabled', false);
+		 }
+	 });
+ });
+
+ $('#downvote').click(function(event) {
+	 $('#downvote').attr('disabled', true);
+	 $('#upvote').attr('disabled', true);
+
+	 var url = document.URL;
+
+	 if (url.substr(url.length-1) === "#")
+		 url = url.substr(0, url.length-1);
+
+	 $.ajax({
+		 url: url + "/downvote",
+		 method: "GET",
+		 dataType: "json",
+		 success: function (data) {
+			 $('#downvote').attr('disabled', false);
+		 }
+	 });
+ });
+
 </script>
 
 @endsection

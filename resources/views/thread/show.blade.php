@@ -51,10 +51,9 @@
 				</div>
 			</div>
 		@if($thread->code_block != "")
-
 			<div class="row">
 				<div class="col-md-8">
-					<pre><code class="code_block">
+					<pre style="background:rgba(0,0,0,0); border: none"><code class="code_block">
 						<div class="panel panel-default" style="background-color: #282828; color: #fff">
 
 					        <div class="panel-body"> {{ $thread->code_block }}</div>
@@ -63,7 +62,6 @@
 				</div>
 			</div>
 		@endif
-	<br>
 	
 	@if( ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)) && Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->is_admin))
 	<a href="{{url('/thread/' . $thread->id . '/lock')}}">
@@ -193,19 +191,9 @@
 	</div>
 @endif
 
-<<<<<<< HEAD
-=======
-@if(Auth::user())
-	@if(Auth::user()->id == $thread->user_id)
-		<a href="{{url('/thread/') . '/' . $thread->id . '/edit'}}">
-			<div class="edit_thread">Edit Thread</div>
-		</a>
-	@endif
-@endif
 @endsection
 
 @section('scripts');
->>>>>>> 7f6d37f12df69a9cd2845c742fa76cc536946148
 <script>
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";

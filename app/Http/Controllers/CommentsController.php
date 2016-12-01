@@ -75,4 +75,30 @@ class CommentsController extends Controller
 		$comment->delete();
 		return redirect()->back();
     }
+
+    public function upvote($id) {
+
+        $comment = Comment::find($id);
+        $user = User::find($comment->user_id);
+        $user->upvotes += 1;
+        $comment->upvotes += 1;
+        $comment->save();
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function downvote($id) {
+
+        $comment = Comment::find($id);
+        $user = User::find($comment->user_id);
+        $user->downvotes += 1;
+        $comment->downvotes += 1;
+        $comment->save();
+        $user->save();
+        if($user->rating($comment->upvotes, $comment->downvotes) == "fa fa-battery-0")
+            $comment->destroy();
+        
+        return redirect()->back();
+    }
 }

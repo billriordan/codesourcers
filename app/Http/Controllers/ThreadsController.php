@@ -17,7 +17,7 @@ class ThreadsController extends Controller
     {
         $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '<=', Carbon::now())->simplePaginate(20);
         $tags = Tag::all();
-    	return view('thread.frontpage', compact('threads', 'tags'));
+        return view('thread.frontpage', compact('threads', 'tags'));
     }
 
     public function show($id)
@@ -39,7 +39,7 @@ class ThreadsController extends Controller
         {
             $thread->end_date = new Carbon($thread->end_date);
         }
-    	return view('thread.show', compact('thread', 'tags'));
+        return view('thread.show', compact('thread', 'tags'));
     }
 
     public function create()
@@ -55,52 +55,52 @@ class ThreadsController extends Controller
 
     public function store()
     {
-    	$thread = new Thread();
+        $thread = new Thread();
 
-		$thread->name = Input::get('name');
-		$thread->description = Input::get('description');
-		$thread->code_block = Input::get('code_block');
-		$thread->user_id = \Auth::user()->id;
+        $thread->name = Input::get('name');
+        $thread->description = Input::get('description');
+        $thread->code_block = Input::get('code_block');
+        $thread->user_id = \Auth::user()->id;
 
-		if(Input::get('start_date'))
-			$thread->start_date = new Carbon(Input::get('start_date'));
-		if(Input::get('end_date'))
-			$thread->end_date = new Carbon(Input::get('end_date'));
+        if(Input::get('start_date'))
+            $thread->start_date = new Carbon(Input::get('start_date'));
+        if(Input::get('end_date'))
+            $thread->end_date = new Carbon(Input::get('end_date'));
 
         $thread->tag_id = Input::get('tags')[0];
-		$thread->save();
+        $thread->save();
 
-    	return redirect('/');
+        return redirect('/');
     }
 
     public function edit($id)
     {
-    	$thread = Thread::find($id);
+        $thread = Thread::find($id);
         $tags = Tag::all();
         $tags2 = array();
         foreach ($tags as $tag) {
             $tags2[$tag->id] = $tag->name;
         }
 
-    	return view('thread.edit', compact('thread'))->withTags($tags2);
+        return view('thread.edit', compact('thread'))->withTags($tags2);
     }
 
     public function update($id)
     {
-    	$thread = Thread::find($id);
-    	$thread->name = Input::get('name');
-		$thread->description = Input::get('description');
-		$thread->code_block = Input::get('code_block');
+        $thread = Thread::find($id);
+        $thread->name = Input::get('name');
+        $thread->description = Input::get('description');
+        $thread->code_block = Input::get('code_block');
 
-		if(Input::get('start_date'))
-			$thread->start_date = Input::get('start_date');
-		if(Input::get('end_date'))
-			$thread->end_date = Input::get('end_date');
+        if(Input::get('start_date'))
+            $thread->start_date = Input::get('start_date');
+        if(Input::get('end_date'))
+            $thread->end_date = Input::get('end_date');
 
         $thread->tag_id = Input::get('tags')[0];
         $thread->save();
 
-    	return redirect('thread/' . $id);
+        return redirect('thread/' . $id);
     }
 
     public function lock($id)
@@ -118,32 +118,32 @@ class ThreadsController extends Controller
 
     public function destroy($id)
     {
-    	$thread = Thread::find($id);
-		$thread->delete();
-		return redirect()->back();
+        $thread = Thread::find($id);
+        $thread->delete();
+        return redirect()->back();
     }
 
     public function upvote($id) {
 
-    	$thread = Thread::find($id);
-		$user = User::find($thread->user_id);
-		$user->upvotes += 1;
-		$thread->upvotes += 1;
-		$thread->save();
-		$user->save();
+        $thread = Thread::find($id);
+        $user = User::find($thread->user_id);
+        $user->upvotes += 1;
+        $thread->upvotes += 1;
+        $thread->save();
+        $user->save();
 
-		return redirect()->back();
-	}
+        return redirect()->back();
+    }
 
     public function downvote($id) {
-    	$thread = Thread::find($id);
-		$user = User::find($thread->user_id);
-		$user->downvotes += 1;
-		$thread->downvotes += 1;
-		$thread->save();
-		$user->save();
-		return redirect()->back();
-	}
+        $thread = Thread::find($id);
+        $user = User::find($thread->user_id);
+        $user->downvotes += 1;
+        $thread->downvotes += 1;
+        $thread->save();
+        $user->save();
+        return redirect()->back();
+    }
 
     public function sort(Request $request){
         $tags = Tag::all();
@@ -160,6 +160,6 @@ class ThreadsController extends Controller
         }
         $tags = Tag::all();
         
-        return view('thread.sort', compact('threads', 'tags', 'current_tag'));
+        return view('thread.frontpage', compact('threads', 'tags', 'current_tag'));
     }
 }

@@ -67,4 +67,4 @@ Route::get('user/{id}/settings', 'SettingsController@show');
 Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
 Route::get('thread/{id}/downvote', 'ThreadsController@downvote');
 
-Route::get('/sort.blade.php', 'ThreadsController@sort');
+Route::get('/', 'ThreadsController@sort');

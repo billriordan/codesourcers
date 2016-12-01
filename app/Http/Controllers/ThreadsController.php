@@ -52,7 +52,7 @@ class ThreadsController extends Controller
         else return redirect()->back();
     }
 
-    public function store(Request $request)
+    public function store()
     {
     	$thread = new Thread();
 
@@ -84,7 +84,7 @@ class ThreadsController extends Controller
     	return view('thread.edit', compact('thread'))->withTags($tags2);
     }
 
-    public function update($id, Request $request)
+    public function update($id)
     {
     	$thread = Thread::find($id);
     	$thread->name = Input::get('name');

@@ -61,7 +61,7 @@
 		@endif
 	<br>
 	
-	@if(Auth::user()->id == $thread->user->id || Auth::user()->is_admin)
+	@if(Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->is_admin))
 	<a href="{{url('/thread/' . $thread->id . '/lock')}}">
 		<div class="row">
 			<div class="col-md-8">
@@ -78,12 +78,23 @@
 				@foreach($thread->comments as $comment)
 					<div class="comment_list">
 						<div class="comment_thumb" id="comment_{{ $comment->id }}">
-							<div class="panel panel-default">
-							@if($comment->user->is_admin)
-								<div class="panel-heading" style="background-color: #aaFFcc"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
+							@if($thread->user_id == $comment->user->id)
+								<div class="panel panel-info">
+							@elseif($comment->user->is_admin)
+								<div class="panel panel-warning">
 							@else
-								<div class="panel-heading"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
+								<div class="panel panel-default">
 							@endif
+								<div class="panel-heading">
+								<a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a>
+								@if(Auth::check() && (Auth::user()->id == $comment->user->id))
+								<div class="delete_button" style="float:right">
+									{{ Form::open(['url' => 'comment/' . $comment->id , 'method' => 'delete']) }}
+									{{ Form::submit('Delete Comment', ['class' => 'btn btn-fail']) }}
+									{{ Form::close() }}
+								</div>
+								@endif
+								</div>
 								<div class="panel-body">
 								{{ $comment->description }}
 								@if($comment->code_block != "")
@@ -104,8 +115,6 @@
 									</div>
 									@if(Auth::check() && ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)))
 										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
-									@else
-										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">{{\Carbon\Carbon::now()}}</button>
 									@endif
 							</div>
 						</div>

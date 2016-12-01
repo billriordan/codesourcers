@@ -1,11 +1,22 @@
 <div class="subcomment_list" style="padding-left: {{$depth * 2}}%;">
 	<div class="comment_thumb" id="subcomment_{{ $comment->id }}">
+	@if($thread->user_id == $comment->user->id)
+		<div class="panel panel-info">
+	@elseif($comment->user->is_admin)
+		<div class="panel panel-warning">
+	@else
 		<div class="panel panel-default">
-		@if($comment->user->is_admin)
-			<div class="panel-heading" style="background-color: #aaFFcc"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
-		@else
-			<div class="panel-heading"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
-		@endif
+	@endif
+			<div class="panel-heading">
+			<a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a>
+			@if(Auth::check() && (Auth::user()->id == $comment->user->id))
+			<div class="delete_button" style="float:right">
+				{{ Form::open(['url' => 'comment/' . $comment->id , 'method' => 'delete']) }}
+				{{ Form::submit('Delete Comment', ['class' => 'btn btn-fail']) }}
+				{{ Form::close() }}
+			</div>
+			@endif
+			</div>
 			<div class="panel-body">{{ $comment->description }}</div>
 				<div class="panel-footer">
 					<div class="stars">

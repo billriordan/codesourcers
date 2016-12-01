@@ -18,6 +18,18 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
 
+.panel-heading a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #888;
+}
+
+.panel-heading a:hover {
+	font-weight: bold;
+	text-decoration: none;
+	color: #bbb;
+}
+
 .navbar {
     border-radius: 0px;
 

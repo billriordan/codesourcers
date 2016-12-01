@@ -15,6 +15,7 @@
 Route::get('/', 'ThreadsController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
+Route::get('/home', 'PagesController@home');
 
 //Registration routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm');
@@ -48,7 +49,7 @@ Route::resource('tag', 'TagsController');
 
 Route::post('thread/{$id}/lock', 'ThreadsController@lock')->middleware('auth');
 
-Route::get('profile', function(){
+Route::get('profile', function() {
     return view('user.profile');
 });
 

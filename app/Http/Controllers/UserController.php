@@ -8,7 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use App\Comment;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\In;
 
 class UserController extends Controller
 {
@@ -115,9 +117,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+    }
+    public function updateUser($id)
+    {
+        $user = User::find($id);
+
+        $user->name = Input::get('username');
+        $user->save();
+
+        return redirect()->back();
+
     }
 
+    public function updateEmail($id)
+    {
+        $user = User::find($id);
+
+        $user->email = Input::get('email');
+        $user->save();
+
+        return redirect()->back();
+    }
     /**
      * Remove the specified resource from storage.
      *

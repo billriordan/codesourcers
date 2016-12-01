@@ -6,6 +6,23 @@
 	<button type="button" class="btn btn-primary" id="createThread" onclick="createThread()">
 		Create Thread</button>-
 @endif
+<div style="float:right">
+	<form role="form" method="GET" action="sort.blade.php">
+		<input type="hidden">			
+		<div class="form-group"> 
+			<select name="tags[]">
+				@foreach($tags as $tag)
+					<option value='{{ $tag->id }}'>{{ $tag->name }}</option>
+				@endforeach
+			</select>
+		</div>
+		<div class="form-group" >
+			<div>
+				<button type="submit" class="btn btn-primary">Sort</button>
+			</div>
+		</div>
+	</form>
+</div>
 <div class="row">
 	<div class="col-md-12 col-md-offset-2">
 		@foreach($threads as $thread)
@@ -29,7 +46,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-8" style="text-align: center">
+	<div class="col-md-12" style="text-align: center">
 		{{$threads->links()}}
 	</div>
 </div>

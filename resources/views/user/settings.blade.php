@@ -22,16 +22,12 @@
             <div class="modal-content">
                 <span class="close">x</span>
 
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('user.store') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+               {{ Form::open(array('route' => array('user.updateUser', $user->id), 'method'=> 'post'))}}
                         <label class="col-md-4 control-label">Username</label>
                         {{ Form::text('username') }}
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
-                </form>
-
+                        {{Form::submit('Change Username')}}
+                {{Form::close()}}
             </div>
 
         </div>  <br>
@@ -48,16 +44,11 @@
                 <span class="close" id="close2">x</span>
 
 
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('user.store') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                {{ Form::open(array('route' => array('user.updateEmail', $user->id), 'method'=> 'post'))}}
+                <label class="col-md-4 control-label">Email</label>
+                {{ Form::text('email') }}
 
-                    <label class="col-md-4 control-label">Email</label>
-                    {{ Form::text('email') }}
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-
-                </form>
-
+                {{Form::submit('Change Email')}}
 
 
             </div>
@@ -69,15 +60,26 @@
 
         Photo: Display photo <br>
 
-        <!-- The data encoding type, enctype, MUST be specified as below -->
-        <form enctype="multipart/form-data" action="__URL__" method="POST">
-            <!-- MAX_FILE_SIZE must precede the file input field (3MB) -->
-            <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-            <!-- Name of input element determines name in $_FILES array -->
-            <input name="userfile" type="file" />
-            <input type="submit" value="Send File" />
-        </form>
+        {{--<!-- The data encoding type, enctype, MUST be specified as below -->--}}
+        {{--<form enctype="multipart/form-data" action="__URL__" method="POST">--}}
+            {{--<!-- MAX_FILE_SIZE must precede the file input field (3MB) -->--}}
+            {{--<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />--}}
+            {{--<!-- Name of input element determines name in $_FILES array -->--}}
+            {{--<input name="userfile" type="file" />--}}
+            {{--<input type="submit" value="Send File" />--}}
+        {{--</form>--}}
 
+        {!! Form::open(array('url'=>'apply/upload','method'=>'POST', 'files'=>true)) !!}
+        <div class="control-group">
+            <div class="controls">
+                {!! Form::file('image') !!}
+                {!!$errors->first('image')!!}
+                @if(Session::has('error'))
+                    <p class="errors">{!! Session::get('error') !!}</p>
+                @endif
+                {!! Form::submit('Submit', array('class'=>'send-btn')) !!}
+                {!! Form::close() !!}
+                </div>
 
         <button class="btn btn-danger">Delete User</button>
 

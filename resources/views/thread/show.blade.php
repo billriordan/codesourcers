@@ -30,9 +30,16 @@
 									<i class="{{$star}}"></i>
 									@endforeach
 									</div>
-									<div class="user_name">{{$thread->user->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
+									@if($thread->start_date)
+										<div class="start_date">{{$thread->start_date->toDayDateTimeString()}}</div>
+									@else
+										<div class="start_date">{{$thread->created_at->toDayDateTimeString()}}</div>
+									@endif
+									@if($thread->start_date)
+										<div class="end_date">Comments Disabled After: {{$thread->end_date->toDayDateTimeString()}}</div>
+									@endif
 								</div>
-							@if(Auth::check() && $thread->end_date < \Carbon\Carbon::now()->timezone('America/Chicago'))
+							@if(Auth::check() && ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)) )
 								<button class="button" onclick="openNav('{{$thread->id}}', 0)">Reply</button>
 							@endif
 					    </div>
@@ -93,10 +100,12 @@
 										<i class="{{$star}}"></i>
 										@endforeach
 										</div>
-										<div class="user_name">{{$comment->created_at->timezone('America/Chicago')->toDayDateTimeString()}}</div>
+										<div class="user_name">{{$comment->created_at->toDayDateTimeString()}}</div>
 									</div>
-									@if(Auth::check() && $thread->end_date < \Carbon\Carbon::now()->timezone('America/Chicago'))
+									@if(Auth::check() && ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)))
 										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
+									@else
+										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">{{\Carbon\Carbon::now()}}</button>
 									@endif
 							</div>
 						</div>

@@ -57,5 +57,12 @@ Route::resource('user','UserController');
 Route::get('user/{id}/comments','UserController@getComments');
 Route::get('user/{id}/tags','UserController@getTags');
 
+Route::post('user/{id}/updateUser', ['uses' =>'UserController@updateUser', 'as' => 'user.updateUser']);
+Route::post('user/{id}/updateEmail', ['uses' =>'UserController@updateEmail', 'as' => 'user.updateEmail']);
+
 
 Route::get('user/{id}/settings', 'SettingsController@show');
+Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
+Route::get('thread/{id}/downvote', 'ThreadsController@downvote');
+
+Route::get('/sort.blade.php', 'ThreadsController@sort');

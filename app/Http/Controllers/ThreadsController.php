@@ -14,7 +14,7 @@ class ThreadsController extends Controller
 {
     public function index()
     {
-        $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '>=', Carbon::now())->simplePaginate(2);
+        $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '<=', Carbon::now())->simplePaginate(20);
         $tags = Tag::all();
     	return view('thread.frontpage', compact('threads', 'tags'));
     }
@@ -30,6 +30,14 @@ class ThreadsController extends Controller
                     ])->limit(1)->get();
         $thread = $thread[0];
         $tags = Tag::all();
+        if($thread->start_date)
+        {
+            $thread->start_date = new Carbon($thread->start_date);
+        }
+        if($thread->end_date)
+        {
+            $thread->end_date = new Carbon($thread->end_date);
+        }
     	return view('thread.show', compact('thread', 'tags'));
     }
 
@@ -54,9 +62,9 @@ class ThreadsController extends Controller
 		$thread->user_id = \Auth::user()->id;
 
 		if(Input::get('start_date'))
-			$thread->start_date = Input::get('start_date');
+			$thread->start_date = new Carbon(Input::get('start_date'));
 		if(Input::get('end_date'))
-			$thread->end_date = Input::get('end_date');
+			$thread->end_date = new Carbon(Input::get('end_date'));
 
         $thread->tag_id = Input::get('tags')[0];
 		$thread->save();
@@ -114,4 +122,26 @@ class ThreadsController extends Controller
 		return redirect()->back();
     }
 
+    public function upvote($id) {
+    	$thread = Thread::find($id);
+		$thread->upvote += 1;
+		$thread->save();
+	}
+
+    public function downvote($id) {
+    	$thread = Thread::find($id);
+		$thread->downvote += 1;
+		$thread->save();
+	}
+
+    public function sort(Request $request){
+        $tags = Tag::all();
+        
+        //dd($request);
+        $current_tag = $request->tags[0];
+        $threads = Thread::where('tag_id', '=', $request->tags)->simplePaginate(20);
+        $tags = Tag::all();
+        
+        return view('thread.sort', compact('threads', 'tags', 'current_tag'));
+    }
 }

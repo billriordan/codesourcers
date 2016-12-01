@@ -58,7 +58,7 @@
 
         Created Date: display <br>
 
-        Photo: Display photo <br>
+        Photo: <img src=" {{asset('uploads/' . $user->photo_id)}}">
 
         {{ Form::open(array('route' => array('user.uploadImage',$user->id),'method'=>'post', 'files'=>true)) }}
         <div class="control-group">

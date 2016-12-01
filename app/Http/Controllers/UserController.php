@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\In;
 use Validator;
-
+use Image;
 
 class UserController extends Controller
 {
@@ -67,6 +67,7 @@ class UserController extends Controller
         $karma = 0;
         if($user->downvotes != 0)
             $karma = ($user->upvotes)/($user->downvotes);
+
 
         return view('user.profile', compact('user', 'comments', 'threads', 'date', 'karma'));
     }
@@ -166,8 +167,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function uploadImage($id){
-        Log::debug('flag');
-
 
         // getting all of the post data
         $file = array('image' => Input::file('image'));
@@ -175,6 +174,9 @@ class UserController extends Controller
         $rules = array('image' => 'required'); //mimes:jpeg,bmp,png and for max size max:10000
         // doing the validation, passing post data, rules and the messages
         $validator = Validator::make($file, $rules);
+        //grab user
+        $user = User::find($id);
+
 
         Log::debug('flag2');
         if ($validator->fails()) {
@@ -184,11 +186,22 @@ class UserController extends Controller
         }
         else {
             // checking file is valid.
+
+
             if (Input::file('image')->isValid()) {
+
+
                 $destinationPath = 'uploads'; // upload path
                 $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-                $fileName = rand(11111,99999).'.'.$extension; // renameing image
-                Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+
+                if($user->photo_id == "defaultProfile.png")
+                    $fileName = rand(11111,99999).'.'.$extension; // renameing image
+                else
+                    $fileName = $user->photo_id; //reuse same photo_id
+
+
+                Image::make(Input::file('image'))->resize(200,200)->save($destinationPath.'/'.$fileName);
+                //Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
                 // sending back with message
 
                 //save filename to user

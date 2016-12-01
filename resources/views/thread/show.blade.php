@@ -30,23 +30,14 @@
 									<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>
 								</div>
 					        	<div class="panel-footer">
-									@if($thread->user->is_admin)
-										<div class="is_admin" style="background-color: #aaFFcc">admin</div>
-									@else
-										<div class="is_user">user</div>
-									@endif
 									<div class="user_name"><a href="{{url('user', $thread->user->id)}}">{{$thread->user->name}}</a></div>
-									<div class="stars">
-									@foreach($thread->user->stars($thread->user->upvotes, $thread->user->downvotes) as $star)
-									<i class="{{$star}}"></i>
-									@endforeach
-									</div>
+									<i class="{{$thread->user->rating($thread->user->upvotes, $thread->user->downvotes)}}"></i>
 									@if($thread->start_date)
 										<div class="start_date">{{$thread->start_date->toDayDateTimeString()}}</div>
 									@else
 										<div class="start_date">{{$thread->created_at->toDayDateTimeString()}}</div>
 									@endif
-									@if($thread->start_date)
+									@if($thread->end_date)
 										<div class="end_date">Comments Disabled After: {{$thread->end_date->toDayDateTimeString()}}</div>
 									@endif
 								</div>
@@ -72,7 +63,7 @@
 		@endif
 	<br>
 	
-	@if(Auth::user()->id == $thread->user->id || Auth::user()->is_admin)
+	@if(Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->is_admin))
 	<a href="{{url('/thread/' . $thread->id . '/lock')}}">
 		<div class="row">
 			<div class="col-md-8">
@@ -89,12 +80,24 @@
 				@foreach($thread->comments as $comment)
 					<div class="comment_list">
 						<div class="comment_thumb" id="comment_{{ $comment->id }}">
-							<div class="panel panel-default">
-							@if($comment->user->is_admin)
-								<div class="panel-heading" style="background-color: #aaFFcc"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
+							@if($thread->user_id == $comment->user->id)
+								<div class="panel panel-info">
+							@elseif($comment->user->is_admin)
+								<div class="panel panel-warning">
 							@else
-								<div class="panel-heading"><a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a></div>
+								<div class="panel panel-default">
 							@endif
+								<div class="panel-heading">
+								<a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a>
+								<i class="{{$comment->user->rating($comment->user->upvotes, $comment->user->downvotes)}}"></i>
+								@if(Auth::check() && (Auth::user()->id == $comment->user->id))
+								<div class="delete_button" style="float:right">
+									{{ Form::open(['url' => 'comment/' . $comment->id , 'method' => 'delete']) }}
+									{{ Form::submit('Delete Comment', ['class' => 'btn btn-fail']) }}
+									{{ Form::close() }}
+								</div>
+								@endif
+								</div>
 								<div class="panel-body">
 								{{ $comment->description }}
 								@if($comment->code_block != "")
@@ -106,17 +109,12 @@
 									@endif
 								</div>
 									<div class="panel-footer">
-										<div class="stars">
-										@foreach($comment->stars($comment->upvotes, $comment->downvotes) as $star)
-										<i class="{{$star}}"></i>
-										@endforeach
+										<div class="rating">
 										</div>
 										<div class="user_name">{{$comment->created_at->toDayDateTimeString()}}</div>
 									</div>
 									@if(Auth::check() && ($thread->end_date > \Carbon\Carbon::now() || !isset($thread->end_date)))
 										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">Reply</button>
-									@else
-										<button class="button" onclick="openNav('{{$thread->id}}', '{{$comment->id}}')">{{\Carbon\Carbon::now()}}</button>
 									@endif
 							</div>
 						</div>

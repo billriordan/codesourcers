@@ -37,4 +37,24 @@ class Thread extends Model
     {
         return $this->belongsTo('App\Tag');
     }
+    
+    public function rating($upvotes, $downvotes)
+    {
+        //return "fa fa-star-o";
+        if($upvotes == 0)
+            $upvotes++;
+        if($downvotes == 0)
+            $downvotes++;
+        $percent = $upvotes /($upvotes + $downvotes);
+        if($percent <= 0.2)
+            return "fa fa-battery-0";
+        if($percent <= 0.4)
+            return "fa fa-battery-1";
+        if($percent <= 0.6)
+            return "fa fa-battery-2";
+        if($percent <= 0.8)
+            return "fa fa-battery-3";
+        else
+            return "fa fa-battery-4";
+    }
 }

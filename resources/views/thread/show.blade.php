@@ -16,7 +16,9 @@
 						<div class="panel panel-default">
 					        <div class="panel-heading">
 					        <div class="votes" style="display: inline; float: right;">
-								<button href="#" class="btn btn-info" id="upvote">upvote</button> <button href="#" class="btn btn-default"  id="downvote">downvote</button>
+					        @if( Auth::check() && (Auth::user()->id != $thread->user_id) )
+								<button href="#" class="btn btn-info" id="upvote_thread">upvote</button> <button href="#" class="btn btn-default"  id="downvote_thread">downvote</button>
+							@endif
 							</div>
 							<div class="thread-name" style="display: inline;">
 								{{$thread->name}}
@@ -75,6 +77,7 @@
 	</a>
 	@endif
 	
+	<!------------------ COMMENTS ------------------>
 			<div class="row">
 				<div class="col-md-6 col-md-offset-1">
 				@foreach($thread->comments as $comment)
@@ -88,6 +91,12 @@
 								<div class="panel panel-default">
 							@endif
 								<div class="panel-heading">
+									<div class="votes" style="display: inline; float: right;">
+					        		@if( Auth::check() && (Auth::user()->id != $comment->user_id) )
+										<button href="#" class="btn btn-info" id="upvote_comment_{{$comment->id}}" onclick="upvotecomment('{{$comment->id}}')">upvote</button>
+										 <button href="#" class="btn btn-default" id="downvote_comment_{{$comment->id}}" onclick="downvotecomment('{{$comment->id}}')">downvote</button>
+									@endif
+									</div>
 								<a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a>
 								<i class="{{$comment->user->rating($comment->user->upvotes, $comment->user->downvotes)}}"></i>
 								@if(Auth::check() && (Auth::user()->id == $comment->user->id))
@@ -133,6 +142,7 @@
 	
 		</div>
 	</div>
+	<!------------------ /ENDCOMMENTS ------------------>
 </div>
 
 @if(Auth::user())
@@ -195,6 +205,7 @@
 
 @section('scripts');
 <script>
+
 function openNav($thread_id, $comment_id) {
     document.getElementById("myNav").style.width = "100%";
     document.getElementsByName("thread_id")[0].value = $thread_id;
@@ -205,9 +216,9 @@ function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
- $('#upvote').click(function(event) {
-	 $('#upvote').attr('disabled', true);
-	 $('#downvote').attr('disabled', true);
+ $('#upvote_thread').click(function(event) {
+	 $('#upvote_thread').attr('disabled', true);
+	 $('#downvote_thread').attr('disabled', true);
 
 	 var url = document.URL;
 
@@ -219,14 +230,14 @@ function closeNav() {
 		 method: "GET",
 		 dataType: "json",
 		 success: function (data) {
-			 $('#upvote').attr('disabled', false);
+			 $('#upvote_thread').attr('disabled', false);
 		 }
 	 });
  });
 
- $('#downvote').click(function(event) {
-	 $('#downvote').attr('disabled', true);
-	 $('#upvote').attr('disabled', true);
+ $('#downvote_thread').click(function(event) {
+	 $('#downvote_thread').attr('disabled', true);
+	 $('#upvote_thread').attr('disabled', true);
 
 	 var url = document.URL;
 
@@ -238,11 +249,48 @@ function closeNav() {
 		 method: "GET",
 		 dataType: "json",
 		 success: function (data) {
-			 $('#downvote').attr('disabled', false);
+			 $('#downvote_thread').attr('disabled', false);
 		 }
 	 });
  });
 
+ function upvotecomment(id) {
+	 $('#upvote_comment_' + id).attr('disabled', true);
+	 $('#downvote_comment_' + id).attr('disabled', true);
+
+	 var url = document.URL;
+
+	 if (url.substr(url.length-1) === "#")
+		 url = url.substr(0, url.length-1);
+
+	 $.ajax({
+		 url: "{{url('comment/')}}/" + id + "/upvote",
+		 method: "GET",
+		 dataType: "json",
+		 success: function (data) {
+			 $('#upvote_comment_' . $id).attr('disabled', false);
+		 }
+	 });
+ };
+
+ function downvotecomment(id) {
+	 $('#upvote_comment_' + id).attr('disabled', true);
+	 $('#downvote_comment_' + id).attr('disabled', true);
+
+	 var url = document.URL;
+
+	 if (url.substr(url.length-1) === "#")
+		 url = url.substr(0, url.length-1);
+
+	 $.ajax({
+		 url: "{{url('comment/')}}/" + id + "/downvote",
+		 method: "GET",
+		 dataType: "json",
+		 success: function (data) {
+			 $('#downvote_comment_' . $id).attr('disabled', false);
+		 }
+	 });
+ };
 </script>
 
 @endsection

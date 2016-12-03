@@ -8,6 +8,12 @@
 		<div class="panel panel-default">
 	@endif
 			<div class="panel-heading">
+				<div class="votes" style="display: inline; float: right;">
+				@if( Auth::check() && (Auth::user()->id != $comment->user_id) )
+					<button href="#" class="btn btn-info" id="upvote_comment_{{$comment->id}}" onclick="upvotecomment('{{$comment->id}}')">upvote</button>
+					 <button href="#" class="btn btn-default" id="downvote_comment_{{$comment->id}}" onclick="downvotecomment('{{$comment->id}}')">downvote</button>
+				@endif
+				</div>
 			<a href="{{url('user', $comment->user->id)}}">{{$comment->user->name}}</a>
 			<i class="{{$comment->user->rating($comment->user->upvotes, $comment->user->downvotes)}}"></i>
 			@if(Auth::check() && (Auth::user()->id == $comment->user->id))

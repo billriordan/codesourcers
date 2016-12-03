@@ -148,10 +148,8 @@ class ThreadsController extends Controller
     public function sort(Request $request){
         $tags = Tag::all();
         
-        //dd($request);
         $current_tag = $request->tags[0];
         $current_order = $request->tags[1];
-
         if($current_order === 'desc') {
             $threads = Thread::where('tag_id', '=', $request->tags)->orderBy('upvotes', 'desc')->simplePaginate(20);
         }
@@ -160,6 +158,6 @@ class ThreadsController extends Controller
         }
         $tags = Tag::all();
         
-        return view('thread.frontpage', compact('threads', 'tags', 'current_tag'));
+        return view('thread.frontpage', compact('threads', 'tags', 'current_tag', 'current_order'));
     }
 }

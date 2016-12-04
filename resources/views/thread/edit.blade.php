@@ -67,6 +67,9 @@
 							</div>
 						</div>
 					</form>
+					{{ Form::open(['class' => "form-horizontal" , 'method' => 'DELETE', 'url' => ['thread', $thread->id]]) }}
+					{{ Form::submit('Delete Thread', ['class' => 'btn btn-fail']) }}
+					{{ Form::close() }}
 				</div>
 			</div>
 		</div>

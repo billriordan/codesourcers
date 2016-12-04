@@ -25,8 +25,8 @@
 							@if(Auth::user())
 								<li class="nav-header">Thread Options</li>
 								<li><button type="button" class="btn btn-primary" id="createThread" onclick="createThread()">Create Thread</button></li>
+								<hr/>
 							@endif
-							<hr/>
 							<li class="nav-header">Filter Options</li>
 							<li>
 								<div class="form-group">

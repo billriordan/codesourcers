@@ -28,7 +28,7 @@
 							</div>
 							</div>
 
-					        <div class="panel-body"> {{ $thread->description }}</div>
+					        <div class="panel-body">{!! html_entity_decode($thread->description) !!}</div>
 					        <div class="panel-tags">
         						<div class="panel-tags">
 									<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>

@@ -37,13 +37,28 @@
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Description</label>
-							{{ Form::textarea('description') }}
+							<div class="wysiwyg">
+								<textarea class="input-block-level" id="summernote" name="description" rows="18" cols="18">
+								</textarea>
+							</div>
+							<script type="text/javascript">
+							$(document).ready(function() {
+							  $('#summernote').summernote(
+							  	{
+							  		width: 400,
+							  		height: 250,
+							  	});
+							});
+							</script>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Code Block</label>
 							{{ Form::textarea('code_block') }}
 						</div>
+
+						<script type="text/javascript" src="{{ asset('/summernote-0.8.2-dist/dist/summernote.min.js') }}"></script>
+						<script src="{!!Html::style('/summernote-0.8.2-dist/dist/summernote.css')!!}"></script>
 
 						<div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

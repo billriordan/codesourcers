@@ -68,7 +68,7 @@
 								<a href="{{url('/thread', $thread->id)}}">{{$thread->name}}</a>
 								<i class="{{$thread->rating($thread->upvotes, $thread->downvotes)}}"></i>
 							</div>
-							<div class="panel-body"> {{ $thread->description }}</div>
+							<div class="panel-body">{!! html_entity_decode($thread->description) !!}</div>
 							<div class="panel-tags">
 								<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>
 							</div>

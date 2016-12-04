@@ -44,6 +44,8 @@ Route::resource('thread', 'ThreadsController');
 Route::get('thread/{id}/lock', 'ThreadsController@lock');
 
 Route::resource('comment', 'CommentsController');
+Route::get('comment/{id}/upvote', 'CommentsController@upvote');
+Route::get('comment/{id}/downvote', 'CommentsController@downvote');
 
 Route::resource('tag', 'TagsController');
 

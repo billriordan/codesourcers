@@ -17,7 +17,9 @@ class ThreadsController extends Controller
     {
         $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '<=', Carbon::now())->simplePaginate(20);
         $tags = Tag::all();
-        return view('thread.frontpage', compact('threads', 'tags'));
+        $current_tag = "";
+        $current_order = "";
+        return view('thread.frontpage', compact('threads', 'tags', 'current_tag', 'current_order'));
     }
 
     public function show($id)
@@ -120,7 +122,7 @@ class ThreadsController extends Controller
     {
         $thread = Thread::find($id);
         $thread->delete();
-        return redirect()->back();
+        return redirect('/');
     }
 
     public function upvote($id) {
@@ -148,10 +150,8 @@ class ThreadsController extends Controller
     public function sort(Request $request){
         $tags = Tag::all();
         
-        //dd($request);
         $current_tag = $request->tags[0];
         $current_order = $request->tags[1];
-
         if($current_order === 'desc') {
             $threads = Thread::where('tag_id', '=', $request->tags)->orderBy('upvotes', 'desc')->simplePaginate(20);
         }
@@ -160,6 +160,6 @@ class ThreadsController extends Controller
         }
         $tags = Tag::all();
         
-        return view('thread.frontpage', compact('threads', 'tags', 'current_tag'));
+        return view('thread.frontpage', compact('threads', 'tags', 'current_tag', 'current_order'));
     }
 }

@@ -35,14 +35,14 @@
 										<div class="form-group"> 
 											<select name="tags[]">
 												@foreach($tags as $tag)
-													<option value='{{ $tag->id }}'>{{ $tag->name }}</option>
+													<option value='{{ $tag->id }}'@if($current_tag == $tag->id) selected="selected"@endif>{{ $tag->name }}</option>
 												@endforeach
 											</select>
 										</div>
 										<div class="form-group"> 
 											<select name="tags[]">
-												<option value="desc">Most Popular</option>
-												<option value="asc">Least Popular</option>
+												<option value="desc"@if($current_order == "desc") selected="selected"@endif>Most Popular</option>
+												<option value="asc"@if($current_order == "asc") selected="selected"@endif>Least Popular</option>
 											</select>
 										</div>
 										<div>
@@ -68,7 +68,7 @@
 								<a href="{{url('/thread', $thread->id)}}">{{$thread->name}}</a>
 								<i class="{{$thread->rating($thread->upvotes, $thread->downvotes)}}"></i>
 							</div>
-							<div class="panel-body"> {{ $thread->description }}</div>
+							<div class="panel-body">{!! html_entity_decode($thread->description) !!}</div>
 							<div class="panel-tags">
 								<span class="label label-default">{{ $tags[$thread->tag_id -1]->name }}</span>
 							</div>

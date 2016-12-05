@@ -44,6 +44,8 @@ Route::resource('thread', 'ThreadsController');
 Route::get('thread/{id}/lock', 'ThreadsController@lock');
 
 Route::resource('comment', 'CommentsController');
+Route::get('comment/{id}/upvote', 'CommentsController@upvote');
+Route::get('comment/{id}/downvote', 'CommentsController@downvote');
 
 Route::resource('tag', 'TagsController');
 
@@ -68,4 +70,4 @@ Route::get('user/{id}/settings', 'SettingsController@show');
 Route::get('thread/{id}/upvote', 'ThreadsController@upvote');
 Route::get('thread/{id}/downvote', 'ThreadsController@downvote');
 
-Route::get('/sort.blade.php', 'ThreadsController@sort');
+Route::get('frontpage.blade.php', 'ThreadsController@sort');

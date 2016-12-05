@@ -33,7 +33,19 @@
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Description</label>
-							{{ Form::textarea('description', $thread->description) }}
+							<div class="wysiwyg">
+								<textarea class="input-block-level" id="summernote" name="description" rows="18" cols="18">{{$thread->description}}
+								</textarea>
+							</div>
+							<script type="text/javascript">
+							$(document).ready(function() {
+							  $('#summernote').summernote(
+							  	{
+							  		width: 400,
+							  		height: 250,
+							  	});
+							});
+							</script>
 						</div>
 
 						<div class="form-group">
@@ -67,6 +79,9 @@
 							</div>
 						</div>
 					</form>
+					{{ Form::open(['class' => "form-horizontal" , 'method' => 'DELETE', 'url' => ['thread', $thread->id]]) }}
+					{{ Form::submit('Delete Thread', ['class' => 'btn btn-fail']) }}
+					{{ Form::close() }}
 				</div>
 			</div>
 		</div>

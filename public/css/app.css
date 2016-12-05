@@ -18,6 +18,11 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
 
+.wysiwyg {
+	float: right;
+	margin-right: 15%;
+}
+
 .panel-heading a {
 	font-weight: bold;
 	text-decoration: none;

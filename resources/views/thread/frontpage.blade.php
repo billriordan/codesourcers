@@ -42,7 +42,7 @@
 										<div class="form-group"> 
 											<select name="tags[]">
 												<option value="desc"@if($current_order == "desc") selected="selected"@endif>Most Popular</option>
-												<option value="asc"@if($current_order == "asc") selected="selected"@endif>Least Popular</option>
+													<option value="asc"@if($current_order == "asc") selected="selected"@endif>Least Popular</option>
 											</select>
 										</div>
 										<div>
@@ -87,8 +87,12 @@
 
 @endsection
 
-<script>
- function createThread(){
-	 window.location="{{URL::to('/thread/create')}}";
- }
-</script>
+@section('scripts')
+
+	<script>
+	 function createThread(){
+		 window.location="{{URL::to('/thread/create')}}";
+	 }
+	</script>
+
+@endsection

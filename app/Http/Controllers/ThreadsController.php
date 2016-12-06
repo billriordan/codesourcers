@@ -15,7 +15,7 @@ class ThreadsController extends Controller
 {
     public function index()
     {
-        $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '<=', Carbon::now())->simplePaginate(20);
+        $threads = Thread::where('start_date', '=', null)->orWhere('start_date', '<=', Carbon::now())->orderBy('created_at', 'desc')->simplePaginate(20);
         $tags = Tag::all();
         $current_tag = "";
         $current_order = "";

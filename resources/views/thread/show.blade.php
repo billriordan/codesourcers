@@ -108,14 +108,8 @@
 								@endif
 								</div>
 								<div class="panel-body">
-								{{ $comment->description }}
-								@if($comment->code_block != "")
-										<pre><code class="code_block">
-											<div class="panel panel-default" style="background-color: #282828; color: #fff">
-										        {{ $comment->code_block }}
-										    </div>
-										</code></pre>
-									@endif
+								{!! html_entity_decode($comment->description) !!}
+								
 								</div>
 									<div class="panel-footer">
 										<div class="rating">
@@ -128,6 +122,16 @@
 							</div>
 						</div>
 					</div>
+					@if($comment->code_block != "")
+					<pre style="background:rgba(0,0,0,0); border: none">
+						<code class="code_block">
+							<div class="panel panel-default" style="background-color: #282828; color: #fff">
+
+						        <div class="panel-body"> {{ $comment->code_block }}</div>
+						    </div>
+						</code>
+					</pre>
+					@endif
 					@if($comment->comments)
 						@foreach($comment->comments as $comment)
 						<div class="shady_stuff" style="display: none">{{ $depth=1 }}</div> <!-- doing some shady stuff here -->

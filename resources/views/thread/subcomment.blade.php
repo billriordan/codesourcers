@@ -34,6 +34,16 @@
 		</div>
 	</div>
 </div>
+@if($comment->code_block != "")
+					<pre style="background:rgba(0,0,0,0); border: none">
+						<code class="code_block">
+							<div class="panel panel-default" style="background-color: #282828; color: #fff">
+
+						        <div class="panel-body"> {{ $comment->code_block }}</div>
+						    </div>
+						</code>
+					</pre>
+					@endif
 @if($comment->comments)
 <div class="shady_stuff" style="display: none">{{ $depth = $depth +1 }}</div>
 	@foreach($comment->comments as $comment)

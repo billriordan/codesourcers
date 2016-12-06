@@ -66,9 +66,9 @@ class UserController extends Controller
 
         $karma = 0;
         if($user->downvotes != 0)
-            $karma = ($user->upvotes)/($user->downvotes);
+            $karma = ($user->upvotes)/($user->downvotes+$user->upvotes)*100;
 
-
+        $karma = round($karma);
         return view('user.profile', compact('user', 'comments', 'threads', 'date', 'karma'));
     }
 
@@ -194,7 +194,6 @@ class UserController extends Controller
         $user = User::find($id);
 
 
-        Log::debug('flag2');
         if ($validator->fails()) {
             // send back to the page with the input data and errors
             flash('Uploaded file not valid', 'error');

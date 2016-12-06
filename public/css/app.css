@@ -125,3 +125,14 @@ a.closebtn:hover {
 #lock:hover {
 	background-color: #555;
 }
+
+.btn-danger {
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d9534f;
+}
+.btn-danger:hover {
+	color: #fff;
+	background-color: #db0011;
+	border-color: #8e1000; /*set the color you want here*/
+}

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="title m-b-md">
-    <h1>View Thread<h1>
+    <h1>{{ $thread->name }}<h1>
 </div>
 
 <div class="container">

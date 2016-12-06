@@ -8,11 +8,14 @@
 
 @section('content')
 
-    <div class="contentBox">
+<div class="title m-b-md">
+    <h1>Settings Page<h1>
+</div>
+	
+    <div class="panel panel-default contentBox">
 
-        <h3>Settings Page</h3> <hr>
         Username: <b>{{$user->name}}</b>
-    <!-- Trigger/Open The Modal -->
+		<!-- Trigger/Open The Modal -->
         <button id="myBtn" class="btn btn-success">Change username</button>
 
         <!-- The Modal -->
@@ -54,9 +57,8 @@
             </div>
 
         </div>  <br>
-        Admin Privileges: display <br>
 
-        Created Date: display <br>
+        Created Date: {{ $user->created_at }}<br>
 
         Photo: <img src=" {{asset('uploads/' . $user->photo_id)}}">
         <button class="btn btn-danger" onclick="window.location='{{url("user/" . $user->id . "/deletePhoto" )}}' ">Delete Photo</button>
